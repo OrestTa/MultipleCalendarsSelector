@@ -1,4 +1,4 @@
-console.log("Installing GCalSets...");
+console.log("Installing Google Calendar Presets...");
 
 var allCalendars;
 var calendarsSet1;
@@ -20,7 +20,7 @@ function initCalendars() { // TODO: doesn't take long (lazy) lists into consider
     calendarsSet1.forEach(item => allCalendars.add(item));
     calendarsSet2.forEach(item => allCalendars.add(item));
     
-    console.log("Initialised GCalSets with " + allCalendars.size + " calendars.");
+    console.log("Initialised Google Calendar Presets with " + allCalendars.size + " calendars");
 
     return allCalendars;
 }

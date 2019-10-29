@@ -1,7 +1,7 @@
 {
   "name": "Google Calendar Presets",
   "version": "1.0",
-  "description": "Google Calendar Presets",
+  "description": "Allows you to easily jump between different sets of displayed calendars on Google Calendar",
   "permissions": ["activeTab", "declarativeContent", "storage"],
   "options_page": "options.html",
   "background": {
@@ -27,7 +27,7 @@
   "content_scripts": [
     {
       "matches": ["https://calendar.google.com/*"],
-      "js": ["jquery-latest.min.js", "GCalSets.js"]
+      "js": ["libs/jquery-latest.min.js", "googleCalendarPresets.js"]
     }
   ]
 }

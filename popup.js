@@ -1,11 +1,5 @@
 'use strict';
 
-// chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-//   chrome.tabs.executeScript(
-//       tabs[0].id,
-//       {file: 'GCalSets.js'});
-// });
-
 let initCalendarsButtonButton = document.getElementById('initCalendars');
 let preset1Button = document.getElementById('preset1');
 let preset2Button = document.getElementById('preset2');
