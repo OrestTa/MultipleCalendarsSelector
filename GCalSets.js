@@ -15,7 +15,7 @@ var calendarNames2 = new Set(
 const myCalendarsLabel = "My calendars";
 const otherCalendarsLabel = "Other calendars";
 
-function findAndSetDefaultCalendarNames() { // caveat: doesn't take long (lazy) lists into consideration before manual scrolling
+function findAndSetDefaultCalendarNames() { // TODO: doesn't take long (lazy) lists into consideration before manual scrolling, automate this
     const myCalendarsDiv = jQuery( "[aria-label='" + myCalendarsLabel + "']" )
     const otherCalendarsDiv = jQuery( "[aria-label='" + otherCalendarsLabel + "']" )
 
@@ -40,12 +40,12 @@ function findCalendarNamesInDiv(div) {
 
 function getState(calendarName) {
     const calendarSpan = jQuery('span:contains("'+calendarName+'")').first();
-    const calendarState = calendarSpan.parent().parent().children().first().children().first().children().first().attr('aria-checked');
+    const calendarState = calendarSpan.parent().parent().children().first().children().first().children().first().attr('aria-checked'); // TODO: Remove
     return calendarState;
 }
 
 function setState(calendarName, state) {
-    const calendarSpan = jQuery('span:contains("'+calendarName+'")').first();
+    const calendarSpan = jQuery('span:contains("'+calendarName+'")').first(); // TODO: Remove
     const calendarState = getState(calendarName);
     if (calendarState!==state) {
         calendarSpan.click();
