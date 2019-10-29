@@ -1,71 +1,60 @@
 
 javascript:(function(e,s){e.src=s;e.onload=function(){jQuery.noConflict();console.log('jQuery injected')};document.head.appendChild(e);})(document.createElement('script'),'//code.jquery.com/jquery-latest.min.js');
 
-var allCalendarNames = new Set();
-
-var calendarNames1 = new Set(
-    "Private",
-    "Birthdays",
-);
-
-var calendarNames2 = new Set(
-    "Holidays in Poland",
-);
+var allCalendars = new Set();
+var calendarsSet1 = new Set();
+var calendarsSet2 = new Set();
 
 const myCalendarsLabel = "My calendars";
 const otherCalendarsLabel = "Other calendars";
 
-function findAndSetDefaultCalendarNames() { // TODO: doesn't take long (lazy) lists into consideration before manual scrolling, automate this
+function initCalendars() { // TODO: doesn't take long (lazy) lists into consideration before manual scrolling, automate this
     const myCalendarsDiv = jQuery( "[aria-label='" + myCalendarsLabel + "']" )
     const otherCalendarsDiv = jQuery( "[aria-label='" + otherCalendarsLabel + "']" )
 
-    calendarNames1 = findCalendarNamesInDiv(myCalendarsDiv);
-    calendarNames2 = findCalendarNamesInDiv(otherCalendarsDiv);
+    calendarsSet1 = findCalendarsInDiv(myCalendarsDiv);
+    calendarsSet2 = findCalendarsInDiv(otherCalendarsDiv);
+    calendarsSet1.forEach(item => allCalendars.add(item));
+    calendarsSet2.forEach(item => allCalendars.add(item));
 
-    calendarNames1.forEach(item => allCalendarNames.add(item));
-    calendarNames2.forEach(item => allCalendarNames.add(item));
-
-    return allCalendarNames;
+    return allCalendars;
 }
 
-function findCalendarNamesInDiv(div) {
-    var foundCalendarNames = new Set();
-
+function findCalendarsInDiv(div) {
+    var foundCalendars = new Set();
     div.find("span:not([class])").each(function(index) {
-        foundCalendarNames.add(jQuery(this).text());
+        foundCalendars.add(jQuery(this).parent().parent());
     });
 
-    return foundCalendarNames;
+    return foundCalendars;
 }
 
-function getState(calendarName) {
-    const calendarSpan = jQuery('span:contains("'+calendarName+'")').first();
-    const calendarState = calendarSpan.parent().parent().children().first().children().first().children().first().attr('aria-checked'); // TODO: Remove
+function getState(calendar) {
+    const calendarState = calendar.children().first().children().first().children().first().attr('aria-checked');
     return calendarState;
 }
 
-function setState(calendarName, state) {
-    const calendarSpan = jQuery('span:contains("'+calendarName+'")').first(); // TODO: Remove
-    const calendarState = getState(calendarName);
+function setState(calendar, state) {
+    const calendarState = getState(calendar);
     if (calendarState!==state) {
-        calendarSpan.click();
+        calendar.click();
     };
 }
 
-function setStateOnCalendars(calendarNames, state) {
-    calendarNames.forEach(function(calendarName) {
-        setState(calendarName, state);
+function setStateOnCalendars(calendars, state) {
+    calendars.forEach(function(calendar) {
+        setState(calendar, state);
     });
 }
 
-function focusCalendarNames(calendarNames) {
-    const calendarNamesToBeDeselected = new Set([...allCalendarNames].filter(x => !calendarNames.has(x)));
-    setStateOnCalendars(calendarNamesToBeDeselected, "false");
-    setStateOnCalendars(calendarNames, "true");
+function focusCalendars(calendars) {
+    const calendarsToHide = new Set([...allCalendars].filter(x => !calendars.has(x)));
+    setStateOnCalendars(calendarsToHide, "false");
+    setStateOnCalendars(calendars, "true");
 }
 
 // testing
-// findAndSetDefaultCalendarNames();
-// focusCalendarNames(calendarNames1);
-// focusCalendarNames(calendarNames2);
-// focusCalendarNames(allCalendarNames);
+initCalendars();
+focusCalendars(calendarsSet1);
+focusCalendars(calendarsSet2);
+focusCalendars(allCalendars);
