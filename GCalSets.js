@@ -1,5 +1,5 @@
 
-javascript:(function(e,s){e.src=s;e.onload=function(){jQuery.noConflict();console.log('jQuery injected')};document.head.appendChild(e);})(document.createElement('script'),'//code.jquery.com/jquery-latest.min.js');
+javascript:(function(e,s){e.src=s;e.onload=function(){jQuery.noConflict();console.log('jQuery injected, initialising...');initCalendars()};document.head.appendChild(e);})(document.createElement('script'),'//code.jquery.com/jquery-latest.min.js');
 
 var allCalendars = new Set();
 var calendarsSet1 = new Set();
@@ -54,7 +54,6 @@ function focusCalendars(calendars) {
 }
 
 // testing
-initCalendars();
-focusCalendars(calendarsSet1);
-focusCalendars(calendarsSet2);
-focusCalendars(allCalendars);
+// focusCalendars(calendarsSet1);
+// focusCalendars(calendarsSet2);
+// focusCalendars(allCalendars);
