@@ -1,24 +1,24 @@
 console.log("Installing Google Calendar Presets...");
 
 var allCalendars;
-var calendarsSet1;
-var calendarsSet2;
+var calendarsPreset1;
+var calendarsPreset2;
 
 const myCalendarsLabel = "My calendars";
 const otherCalendarsLabel = "Other calendars";
 
 function initCalendars() { // TODO: doesn't take long (lazy) lists into consideration before manual scrolling, automate this
     allCalendars = new Set();
-    calendarsSet1 = new Set();
-    calendarsSet2 = new Set();
+    calendarsPreset1 = new Set();
+    calendarsPreset2 = new Set();
 
     const myCalendarsDiv = jQuery( "[aria-label='" + myCalendarsLabel + "']" )
     const otherCalendarsDiv = jQuery( "[aria-label='" + otherCalendarsLabel + "']" )
 
-    calendarsSet1 = findCalendarsInDiv(myCalendarsDiv);
-    calendarsSet2 = findCalendarsInDiv(otherCalendarsDiv);
-    calendarsSet1.forEach(item => allCalendars.add(item));
-    calendarsSet2.forEach(item => allCalendars.add(item));
+    calendarsPreset1 = findCalendarsInDiv(myCalendarsDiv);
+    calendarsPreset2 = findCalendarsInDiv(otherCalendarsDiv);
+    calendarsPreset1.forEach(item => allCalendars.add(item));
+    calendarsPreset2.forEach(item => allCalendars.add(item));
     
     console.log("Initialised Google Calendar Presets with " + allCalendars.size + " calendars");
 
