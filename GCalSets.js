@@ -11,7 +11,7 @@ function initCalendars() { // TODO: doesn't take long (lazy) lists into consider
     allCalendars = new Set();
     calendarsSet1 = new Set();
     calendarsSet2 = new Set();
-    
+
     const myCalendarsDiv = jQuery( "[aria-label='" + myCalendarsLabel + "']" )
     const otherCalendarsDiv = jQuery( "[aria-label='" + otherCalendarsLabel + "']" )
 
@@ -58,9 +58,6 @@ function focusCalendars(calendars) {
     setStateOnCalendars(calendars, "true");
 }
 
-// testing
-// focusCalendars(calendarsSet1);
-// focusCalendars(calendarsSet2);
-// focusCalendars(allCalendars);
-
-initCalendars()
+$( document ).ready(function() {
+    initCalendars()    
+});
