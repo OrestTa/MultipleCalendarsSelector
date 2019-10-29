@@ -1,21 +1,44 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 'use strict';
 
-let changeColor = document.getElementById('changeColor');
+// chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+//   chrome.tabs.executeScript(
+//       tabs[0].id,
+//       {file: 'GCalSets.js'});
+// });
 
-chrome.storage.sync.get('color', function(data) {
-  changeColor.style.backgroundColor = data.color;
-  changeColor.setAttribute('value', data.color);
-});
+let initCalendarsButtonButton = document.getElementById('initCalendars');
+let preset1Button = document.getElementById('preset1');
+let preset2Button = document.getElementById('preset2');
 
-changeColor.onclick = function(element) {
-  let color = element.target.value;
+// chrome.storage.sync.get('calendarsSet1', function(data) {
+//   changeColor.style.backgroundColor = data.color;
+//   changeColor.setAttribute('value', data.color);
+// });
+
+// changeColor.onclick = function(element) {
+//   let color = element.target.value;
+// };
+
+initCalendarsButtonButton.onclick = function(element) {
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
     chrome.tabs.executeScript(
         tabs[0].id,
-        {code: 'document.body.style.backgroundColor = "' + color + '";'});
+        {code: 'initCalendars()'});
+  });
+};
+
+preset1Button.onclick = function(element) {
+  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+    chrome.tabs.executeScript(
+        tabs[0].id,
+        {code: 'focusCalendars(calendarsSet1)'});
+  });
+};
+
+preset2Button.onclick = function(element) {
+  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+    chrome.tabs.executeScript(
+        tabs[0].id,
+        {code: 'focusCalendars(calendarsSet2)'});
   });
 };

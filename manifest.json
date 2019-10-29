@@ -1,7 +1,7 @@
 {
-  "name": "Getting Started Example",
+  "name": "Google Calendar Presets",
   "version": "1.0",
-  "description": "Build an Extension!",
+  "description": "Google Calendar Presets",
   "permissions": ["activeTab", "declarativeContent", "storage"],
   "options_page": "options.html",
   "background": {
@@ -23,5 +23,11 @@
     "48": "images/get_started48.png",
     "128": "images/get_started128.png"
   },
-  "manifest_version": 2
+  "manifest_version": 2,
+  "content_scripts": [
+    {
+      "matches": ["https://calendar.google.com/*"],
+      "js": ["jquery-latest.min.js", "GCalSets.js"]
+    }
+  ]
 }

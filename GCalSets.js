@@ -1,14 +1,17 @@
+console.log("Installing GCalSets...");
 
-javascript:(function(e,s){e.src=s;e.onload=function(){jQuery.noConflict();console.log('jQuery injected, initialising...');initCalendars()};document.head.appendChild(e);})(document.createElement('script'),'//code.jquery.com/jquery-latest.min.js');
-
-var allCalendars = new Set();
-var calendarsSet1 = new Set();
-var calendarsSet2 = new Set();
+var allCalendars;
+var calendarsSet1;
+var calendarsSet2;
 
 const myCalendarsLabel = "My calendars";
 const otherCalendarsLabel = "Other calendars";
 
 function initCalendars() { // TODO: doesn't take long (lazy) lists into consideration before manual scrolling, automate this
+    allCalendars = new Set();
+    calendarsSet1 = new Set();
+    calendarsSet2 = new Set();
+    
     const myCalendarsDiv = jQuery( "[aria-label='" + myCalendarsLabel + "']" )
     const otherCalendarsDiv = jQuery( "[aria-label='" + otherCalendarsLabel + "']" )
 
@@ -16,6 +19,8 @@ function initCalendars() { // TODO: doesn't take long (lazy) lists into consider
     calendarsSet2 = findCalendarsInDiv(otherCalendarsDiv);
     calendarsSet1.forEach(item => allCalendars.add(item));
     calendarsSet2.forEach(item => allCalendars.add(item));
+    
+    console.log("Initialised GCalSets with " + allCalendars.size + " calendars.");
 
     return allCalendars;
 }
@@ -57,3 +62,5 @@ function focusCalendars(calendars) {
 // focusCalendars(calendarsSet1);
 // focusCalendars(calendarsSet2);
 // focusCalendars(allCalendars);
+
+initCalendars()
