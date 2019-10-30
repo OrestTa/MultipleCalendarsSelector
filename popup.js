@@ -5,6 +5,7 @@ let preset1Button = document.getElementById('preset1');
 let preset2Button = document.getElementById('preset2');
 let presetAllButton = document.getElementById('presetAll');
 let presetNoneButton = document.getElementById('presetNone');
+let openOptionsButton = document.getElementById('openOptions');
 
 // chrome.storage.sync.get('calendarsSet1', function(data) {
 //   changeColor.style.backgroundColor = data.color;
@@ -54,3 +55,7 @@ presetNoneButton.onclick = function(element) {
         {code: 'focusCalendars(new Set())'});
   });
 };
+
+openOptionsButton.onclick = function(element) {
+  chrome.tabs.create({ 'url': 'chrome://extensions/?options=' + chrome.runtime.id });
+}
