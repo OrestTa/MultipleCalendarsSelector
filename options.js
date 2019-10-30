@@ -7,7 +7,7 @@ const storageIdForPresets = 'presets';
 let presetForm = document.getElementById('presetForm');
 let presetFormSubmitButton = document.getElementById('presetFormSubmitButton');
 
-var calendars = ['private', 'doc'];
+var calendars = ['private', 'work'];
 
 function constructOptions(calendars) {
   for (let calendar of calendars) {
@@ -37,16 +37,12 @@ function constructOptions(calendars) {
   }
 
   presetFormSubmitButton.addEventListener('click', function() {
-    const presets = formToPresets();
-    chrome.storage.sync.set(
-      {
-        [storageIdForPresets]: serialisePresetsForStorage(presets)
-      }, 
-      function() {
-        console.log('Persisting presets');
-      }
-    )
+    storePresets(formToPresets());
   });
+}
+
+function storePresets(presets) {
+  chrome.storage.sync.set({[storageIdForPresets]: serialisePresetsForStorage(presets)}, null)
 }
 
 function formToPresets() {
