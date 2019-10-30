@@ -58,6 +58,6 @@ function focusCalendars(calendars) {
     setStateOnCalendars(calendars, "true");
 }
 
-$( document ).ready(function() {
+jQuery(document).ready(function() {
     initCalendars()    
 });
