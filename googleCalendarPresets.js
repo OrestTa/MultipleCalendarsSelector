@@ -7,7 +7,8 @@ var calendarsPreset2;
 const myCalendarsLabel = "My calendars";
 const otherCalendarsLabel = "Other calendars";
 
-function initCalendars() { // TODO: doesn't take long (lazy) lists into consideration before manual scrolling, automate this
+function initCalendars() {
+    // TODO: doesn't take long (lazy) lists into consideration; manual scrolling down needed first — automate this
     allCalendars = new Set();
     calendarsPreset1 = new Set();
     calendarsPreset2 = new Set();

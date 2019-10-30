@@ -2,6 +2,8 @@ javascript:(function(e,s){e.src=s;e.onload=function(){jQuery.noConflict();init()
 
 'use strict';
 
+const storageIdForPresets = 'presets';
+
 let presetForm = document.getElementById('presetForm');
 let presetFormSubmitButton = document.getElementById('presetFormSubmitButton');
 
@@ -36,15 +38,23 @@ function constructOptions(calendars) {
 
   presetFormSubmitButton.addEventListener('click', function() {
     const presets = formToPresets();
-    chrome.storage.sync.set({presets: presets}, function() {
-      console.log('Persisting presets');
-    })
+    chrome.storage.sync.set(
+      {
+        [storageIdForPresets]: serialisePresetsForStorage(presets)
+      }, 
+      function() {
+        console.log('Persisting presets');
+      }
+    )
   });
 }
 
 function formToPresets() {
-  var calendarsPreset1 = [];
-  var calendarsPreset2 = [];
+  var calendarsPreset1 = new Set();
+  var calendarsPreset2 = new Set();
+  var presets = new Set();
+  presets.add(calendarsPreset1);
+  presets.add(calendarsPreset2);
 
   const inputs = jQuery("#presetForm :input[type='checkbox']");
 
@@ -54,35 +64,51 @@ function formToPresets() {
     const checked = jQuery(this).is(':checked');
     if (checked) {
       if (preset === "1") {
-        calendarsPreset1.push(calendar);
+        calendarsPreset1.add(calendar);
       };
       if (preset === "2") {
-        calendarsPreset2.push(calendar);
+        calendarsPreset2.add(calendar);
       }
     }
   });
 
-  return {
-    calendarsPreset1: calendarsPreset1, 
-    calendarsPreset2: calendarsPreset2,
-  };
+  return presets;
 }
 
-function presetsToForm() {
-  chrome.storage.sync.get('presets', function(data) {
-    const calendarsPreset1 = data.presets.calendarsPreset1;
-    const calendarsPreset2 = data.presets.calendarsPreset2;
+function serialisePresetsForStorage(presets) {
+  var serialisedPresets = [];
+  presets.forEach(function (preset) {
+    serialisedPresets.push([...preset]);
+  });
+  return serialisedPresets;
+}
 
+function deserialisePresetsFromStorage(callback) {
+  chrome.storage.sync.get(storageIdForPresets, function(data) {
+    const presetsFromStorage = data[storageIdForPresets];
+    var presets = new Set();
+    presetsFromStorage.forEach(function(preset) {
+      const calendars = new Set(preset);
+      presets.add(calendars);
+    })
+    callback(presets);
+  });
+}
+
+function restorePresetsOntoForm() {
+  deserialisePresetsFromStorage(function(presets) {
+    const temporaryPresetsArray = [...presets];
+  
     const inputs = jQuery("#presetForm :input[type='checkbox']");
-
+  
     inputs.each(function() {
       const calendar = jQuery(this).attr('calendar');
-      if (calendarsPreset1.includes(calendar)) {
+      if ([...temporaryPresetsArray[0]].includes(calendar)) {
         if (jQuery(this).attr('preset') === "1") {
           jQuery(this).attr("checked", true);
         }
       }
-      if (calendarsPreset2.includes(calendar)) {
+      if ([...temporaryPresetsArray[1]].includes(calendar)) {
         if (jQuery(this).attr('preset') === "2") {
           jQuery(this).attr("checked", true);
         }
@@ -93,5 +119,5 @@ function presetsToForm() {
 
 function init() {
   constructOptions(calendars);
-  presetsToForm();
+  restorePresetsOntoForm();
 }
