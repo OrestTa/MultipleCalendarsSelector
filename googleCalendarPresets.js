@@ -72,6 +72,14 @@ function focusCalendars(presetId) {
     setStateOnCalendars(presets[presetId], "true");
 }
 
+function hideAllCalendars() {
+    setStateOnCalendars(allCalendars, "false");
+}
+
+function showAllCalendars() {
+    setStateOnCalendars(allCalendars, "true");
+}
+
 jQuery(document).ready(function() {
     initCalendars()    
 });

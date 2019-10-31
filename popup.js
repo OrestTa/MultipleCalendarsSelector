@@ -35,7 +35,7 @@ presetAllButton.onclick = function(element) {
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
     chrome.tabs.executeScript(
         tabs[0].id,
-        {code: 'focusCalendars(allCalendars)'});
+        {code: 'showAllCalendars()'});
   });
 };
 
@@ -43,7 +43,7 @@ presetNoneButton.onclick = function(element) {
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
     chrome.tabs.executeScript(
         tabs[0].id,
-        {code: 'focusCalendars(new Set())'});
+        {code: 'hideAllCalendars()'});
   });
 };
 
