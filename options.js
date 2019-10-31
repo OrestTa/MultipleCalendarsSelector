@@ -7,7 +7,6 @@ const preset1Id = '1'; // TODO
 const preset2Id = '2'; // TODO
 
 function constructOptions(calendars) {
-  console.log(calendars);
   for (let calendar of [...calendars]) {
     let div = document.createElement('div');
     let inputPreset1 = document.createElement('input');
@@ -74,6 +73,8 @@ function restorePresetsOntoForm() {
         };
       });
     });
+  }, function(err) {
+    console.log("Couldn't restore presets onto form: " + err);
   });
 }
 
