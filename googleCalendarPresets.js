@@ -1,17 +1,29 @@
 console.log("Installing Google Calendar Presets...");
 
-var allCalendars;
-var calendarsPreset1;
-var calendarsPreset2;
+const myCalendarsLabel = "My calendars"; // TODO
+const otherCalendarsLabel = "Other calendars"; // TODO
 
-const myCalendarsLabel = "My calendars";
-const otherCalendarsLabel = "Other calendars";
+var calendarsPreset1; //TODO
+var calendarsPreset2; //TODO
+
+var presets;
+var allCalendars;
 
 function initCalendars() {
-    // TODO: doesn't take long (lazy) lists into consideration; manual scrolling down needed first — automate this
+    // Restore saved presets, then check for further (new) calendars
     allCalendars = new Set();
     calendarsPreset1 = new Set();
     calendarsPreset2 = new Set();
+
+    getAndDeserialisePresetsFromStorage(function(presets) {
+        const presetsFromStorage = presets;
+        const myCalendarsFromDiv = findCalendarsInDiv(myCalendarsDiv);
+        const otherCalendarsFromDiv = findCalendarsInDiv(otherCalendarsDiv);
+
+        presets.forEach(function(preset) {
+            console.log(preset);
+        })
+    });
 
     const myCalendarsDiv = jQuery( "[aria-label='" + myCalendarsLabel + "']" )
     const otherCalendarsDiv = jQuery( "[aria-label='" + otherCalendarsLabel + "']" )
@@ -27,6 +39,7 @@ function initCalendars() {
 }
 
 function findCalendarsInDiv(div) {
+    // TODO: doesn't take long (lazy) lists into consideration; manual scrolling down needed first — automate this
     var foundCalendars = new Set();
     div.find("span:not([class])").each(function(index) {
         foundCalendars.add(jQuery(this).parent().parent());

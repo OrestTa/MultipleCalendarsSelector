@@ -7,22 +7,23 @@ function storePresets(presets) {
 }
 
 function serialisePresetsForStorage(presets) {
-    var serialisedPresets = [];
-    presets.forEach(function (preset) {
-        serialisedPresets.push([...preset]);
+    var serialisedPresets = {};
+    const presetIds = Object.keys(presets);
+    presetIds.forEach(function (presetId) {
+        serialisedPresets[presetId] = [...presets[presetId]];
     });
     return serialisedPresets;
 }
 
-function deserialisePresetsFromStorage(callback) {
+function getAndDeserialisePresetsFromStorage(callback) {
     chrome.storage.sync.get(storageIdForPresets, function(data) {
       const presetsFromStorage = data[storageIdForPresets];
-      var presets = new Set();
-      presetsFromStorage.forEach(function(preset) {
-        const calendars = new Set(preset);
-        presets.add(calendars);
+      var presets = {};
+      const presetIds = Object.keys(presetsFromStorage);
+      presetIds.forEach(function(presetId) {
+        const calendars = new Set(presetsFromStorage[presetId]);
+        presets[presetId] = calendars;
       })
       callback(presets);
     });
 }
-  

@@ -3,6 +3,9 @@
 let presetForm = document.getElementById('presetForm');
 let presetFormSubmitButton = document.getElementById('presetFormSubmitButton');
 
+const preset1Id = '1'; // TODO
+const preset2Id = '2'; // TODO
+
 var calendars = ['private', 'work']; // TODO
 
 function constructOptions(calendars) {
@@ -14,13 +17,13 @@ function constructOptions(calendars) {
     let span = document.createElement('span');
 
     inputPreset1.type = "checkbox";
-    inputPreset1.setAttribute('preset', "1");
+    inputPreset1.setAttribute('preset', preset1Id);
     inputPreset1.setAttribute('calendar', calendar);
 
     slash.textContent = "/";
 
     inputPreset2.type = "checkbox";
-    inputPreset2.setAttribute('preset', "2");
+    inputPreset2.setAttribute('preset', preset2Id);
     inputPreset2.setAttribute('calendar', calendar);
 
     span.textContent = calendar;
@@ -38,11 +41,7 @@ function constructOptions(calendars) {
 }
 
 function formToPresets() {
-  var calendarsPreset1 = new Set();
-  var calendarsPreset2 = new Set();
-  var presets = new Set();
-  presets.add(calendarsPreset1);
-  presets.add(calendarsPreset2);
+  var presets = {};
 
   const inputs = jQuery("#presetForm :input[type='checkbox']");
 
@@ -51,36 +50,30 @@ function formToPresets() {
     const calendar = jQuery(this).attr('calendar');
     const checked = jQuery(this).is(':checked');
     if (checked) {
-      if (preset === "1") {
-        calendarsPreset1.add(calendar);
-      };
-      if (preset === "2") {
-        calendarsPreset2.add(calendar);
+      if (typeof(presets[preset]) === "undefined") {
+        presets[preset] = new Set();
       }
+      presets[preset].add(calendar);
     }
   });
-
+  
   return presets;
 }
 
 function restorePresetsOntoForm() {
-  deserialisePresetsFromStorage(function(presets) {
-    const temporaryPresetsArray = [...presets];
-  
+  getAndDeserialisePresetsFromStorage(function(presets) {
     const inputs = jQuery("#presetForm :input[type='checkbox']");
-  
     inputs.each(function() {
-      const calendar = jQuery(this).attr('calendar');
-      if ([...temporaryPresetsArray[0]].includes(calendar)) {
-        if (jQuery(this).attr('preset') === "1") {
-          jQuery(this).attr("checked", true);
-        }
-      }
-      if ([...temporaryPresetsArray[1]].includes(calendar)) {
-        if (jQuery(this).attr('preset') === "2") {
-          jQuery(this).attr("checked", true);
-        }
-      }
+      const currentInput = jQuery(this);
+      const calendar = currentInput.attr('calendar');
+      const presetIds = Object.keys(presets);
+      presetIds.forEach(function(presetId) {
+        if (presets[presetId] && (presets[presetId]).has(calendar)) {
+          if (currentInput.attr('preset') === presetId) {
+            currentInput.attr("checked", true);
+          };
+        };
+      });
     });
   });
 }
