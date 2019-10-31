@@ -1,13 +1,9 @@
-javascript:(function(e,s){e.src=s;e.onload=function(){jQuery.noConflict();init()};document.head.appendChild(e);})(document.createElement('script'),'libs/jquery-latest.min.js');
-
 'use strict';
-
-const storageIdForPresets = 'presets';
 
 let presetForm = document.getElementById('presetForm');
 let presetFormSubmitButton = document.getElementById('presetFormSubmitButton');
 
-var calendars = ['private', 'work'];
+var calendars = ['private', 'work']; // TODO
 
 function constructOptions(calendars) {
   for (let calendar of calendars) {
@@ -41,10 +37,6 @@ function constructOptions(calendars) {
   });
 }
 
-function storePresets(presets) {
-  chrome.storage.sync.set({[storageIdForPresets]: serialisePresetsForStorage(presets)}, null)
-}
-
 function formToPresets() {
   var calendarsPreset1 = new Set();
   var calendarsPreset2 = new Set();
@@ -71,26 +63,6 @@ function formToPresets() {
   return presets;
 }
 
-function serialisePresetsForStorage(presets) {
-  var serialisedPresets = [];
-  presets.forEach(function (preset) {
-    serialisedPresets.push([...preset]);
-  });
-  return serialisedPresets;
-}
-
-function deserialisePresetsFromStorage(callback) {
-  chrome.storage.sync.get(storageIdForPresets, function(data) {
-    const presetsFromStorage = data[storageIdForPresets];
-    var presets = new Set();
-    presetsFromStorage.forEach(function(preset) {
-      const calendars = new Set(preset);
-      presets.add(calendars);
-    })
-    callback(presets);
-  });
-}
-
 function restorePresetsOntoForm() {
   deserialisePresetsFromStorage(function(presets) {
     const temporaryPresetsArray = [...presets];
@@ -113,7 +85,24 @@ function restorePresetsOntoForm() {
   });
 }
 
-function init() {
-  constructOptions(calendars);
-  restorePresetsOntoForm();
+function injectScript(pathToScript, callback) {
+  (function(e,s){
+    e.src=s;
+    e.onload=function(){
+      callback()
+    };
+    document.head.appendChild(e);
+  })(document.createElement('script'), pathToScript);  
 }
+
+function init() {
+  injectScript('libs/jquery-latest.min.js', function() {
+    jQuery.noConflict();
+    injectScript('utils.js', function() {
+      constructOptions(calendars);
+      restorePresetsOntoForm();
+    })
+  });
+}
+
+init();
