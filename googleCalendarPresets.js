@@ -7,18 +7,13 @@ const calendarNameStringsToStrip = ['Loading...', //g, //g]; // TODO
 const preset1Id = '1'; // TODO
 const preset2Id = '2'; // TODO
 
-var presets = {};
 var allCalendars;
 
 function initCalendars() {
     // Restore saved presets, then check for further (new) calendars
     allCalendars = new Set();
-    calendarsPreset1 = new Set();
-    calendarsPreset2 = new Set();
 
-    getAndDeserialisePresetsFromStorage(function(presetsFromStorage) {
-        presets = presetsFromStorage;
-
+    getAndDeserialisePresetsFromStorage(function(presets) {
         const myCalendarsDiv = jQuery( "[aria-label='" + myCalendarsLabel + "']" )
         const otherCalendarsDiv = jQuery( "[aria-label='" + otherCalendarsLabel + "']" )
 
@@ -39,6 +34,7 @@ function initCalendars() {
 
         if (Object.keys(presets).length == 0) {
             // No presets found, initialising with defaults
+            var presets = {};
             presets[preset1Id] = myCalendarsFromDiv;
             presets[preset2Id] = otherCalendarsFromDiv;
             storePresets(presets);
@@ -82,10 +78,12 @@ function getCalendarJQObjectsFromNames(calendarNames) {
 }
 
 function focusCalendars(presetId) {
-    const calendarJQObjects = getCalendarJQObjectsFromNames(presets[presetId])
-    const calendarsToHide = new Set([...allCalendars].filter(x => !calendarJQObjects.has(x)));
-    setStateOnCalendars(calendarsToHide, "false");
-    setStateOnCalendars(calendarJQObjects, "true");
+    getAndDeserialisePresetsFromStorage(function(presets) {
+        const calendarJQObjects = getCalendarJQObjectsFromNames(presets[presetId])
+        const calendarsToHide = new Set([...allCalendars].filter(x => !calendarJQObjects.has(x)));
+        setStateOnCalendars(calendarsToHide, "false");
+        setStateOnCalendars(calendarJQObjects, "true");
+    })
 }
 
 function hideAllCalendars() {
