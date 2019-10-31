@@ -3,9 +3,6 @@
 let presetForm = document.getElementById('presetForm');
 let presetFormSubmitButton = document.getElementById('presetFormSubmitButton');
 
-const preset1Id = '1'; // TODO
-const preset2Id = '2'; // TODO
-
 function constructOptions(calendars) {
   for (let calendar of [...calendars]) {
     let div = document.createElement('div');

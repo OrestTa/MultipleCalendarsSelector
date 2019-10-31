@@ -1,9 +1,7 @@
 console.log("Installing Google Calendar Presets...");
 
-const myCalendarsLabel = "My calendars"; // TODO
-const otherCalendarsLabel = "Other calendars"; // TODO
-const preset1Id = '1'; // TODO
-const preset2Id = '2'; // TODO
+const myCalendarsLabel = "My calendars"; // TODO: Put in options for user-implemented i18n
+const otherCalendarsLabel = "Other calendars"; // TODO: Put in options for user-implemented i18n
 
 var allCalendars;
 

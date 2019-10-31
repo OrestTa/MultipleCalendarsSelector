@@ -1,5 +1,10 @@
 // Google Calendar Presets: Utils
 
+// General
+
+const preset1Id = '1'; // TODO: make dynamic
+const preset2Id = '2'; // TODO: make dynamic
+
 // Storage
 
 const storageIdForPresets = 'presets';
@@ -36,7 +41,7 @@ function getAndDeserialisePresetsFromStorage(callbackSuccess, callbackFailure) {
 
 // Object helpers
 
-const calendarNameStringsToStrip = ['Loading...', //g, //g]; // TODO
+const calendarNameStringsToStrip = ['Loading...', //g, //g]; // TODO: Put in options for user-implemented i18n
 
 function namesFromCalendarJQObjects(calendarJQObjects) {
     return [...calendarJQObjects].reverse().map(calendarJQObject => { // TODO: Add explicit ordering
