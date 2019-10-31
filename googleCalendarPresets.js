@@ -2,11 +2,12 @@ console.log("Installing Google Calendar Presets...");
 
 const myCalendarsLabel = "My calendars"; // TODO
 const otherCalendarsLabel = "Other calendars"; // TODO
+const calendarNameStringsToStrip = ['Loading...', //g, //g]; // TODO
 
 const preset1Id = '1'; // TODO
 const preset2Id = '2'; // TODO
 
-var presets= {};
+var presets = {};
 var allCalendars;
 
 function initCalendars() {
@@ -16,26 +17,36 @@ function initCalendars() {
     calendarsPreset2 = new Set();
 
     getAndDeserialisePresetsFromStorage(function(presetsFromStorage) {
+        presets = presetsFromStorage;
+
+        const myCalendarsDiv = jQuery( "[aria-label='" + myCalendarsLabel + "']" )
+        const otherCalendarsDiv = jQuery( "[aria-label='" + otherCalendarsLabel + "']" )
+
         const myCalendarsFromDiv = findCalendarsInDiv(myCalendarsDiv);
         const otherCalendarsFromDiv = findCalendarsInDiv(otherCalendarsDiv);
 
-        const presetIds = Object.keys(presetsFromStorage);
-        presetIds.forEach(function(presetId) {
-            console.log(presetsFromStorage [presetId]);
-        })
+        allCalendars = new Set([... myCalendarsFromDiv, ... otherCalendarsFromDiv]);
+        const allCalendarsSerialised = [...allCalendars].reverse().map(calendar => { // TODO: Add explicit ordering
+            var calendarName = calendar.text();
+            for (i = 0; i < calendarNameStringsToStrip.length; i++) {
+                calendarName = calendarName.replace(calendarNameStringsToStrip[i], '');
+            }
+            return calendarName;
+        });
+        console.log("Found calendars: " + allCalendarsSerialised);
+
+        chrome.storage.sync.set({[storageIdForAllCalendars]: allCalendarsSerialised}, null)
+
+        if (Object.keys(presets).length == 0) {
+            // No presets found, initialising with defaults
+            presets[preset1Id] = myCalendarsFromDiv;
+            presets[preset2Id] = otherCalendarsFromDiv;
+            storePresets(presets);
+        }
+
+        console.log("Initialised Google Calendar Presets with " + allCalendars.size + " calendars");
+        return allCalendars;
     });
-
-    const myCalendarsDiv = jQuery( "[aria-label='" + myCalendarsLabel + "']" )
-    const otherCalendarsDiv = jQuery( "[aria-label='" + otherCalendarsLabel + "']" )
-
-    presets[preset1Id] = findCalendarsInDiv(myCalendarsDiv);
-    presets[preset2Id] = findCalendarsInDiv(otherCalendarsDiv);
-    presets[preset1Id].forEach(item => allCalendars.add(item));
-    presets[preset2Id].forEach(item => allCalendars.add(item));
-    
-    console.log("Initialised Google Calendar Presets with " + allCalendars.size + " calendars");
-
-    return allCalendars;
 }
 
 function findCalendarsInDiv(div) {
@@ -66,10 +77,15 @@ function setStateOnCalendars(calendars, state) {
     });
 }
 
+function getCalendarJQObjectsFromNames(calendarNames) {
+    return new Set([...allCalendars].filter(calendar => new RegExp([...calendarNames].join('|')).test(calendar.text())));
+}
+
 function focusCalendars(presetId) {
-    const calendarsToHide = new Set([...allCalendars].filter(x => !presets[presetId].has(x)));
+    const calendarJQObjects = getCalendarJQObjectsFromNames(presets[presetId])
+    const calendarsToHide = new Set([...allCalendars].filter(x => !calendarJQObjects.has(x)));
     setStateOnCalendars(calendarsToHide, "false");
-    setStateOnCalendars(presets[presetId], "true");
+    setStateOnCalendars(calendarJQObjects, "true");
 }
 
 function hideAllCalendars() {

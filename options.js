@@ -6,10 +6,9 @@ let presetFormSubmitButton = document.getElementById('presetFormSubmitButton');
 const preset1Id = '1'; // TODO
 const preset2Id = '2'; // TODO
 
-var calendars = ['private', 'work']; // TODO
-
 function constructOptions(calendars) {
-  for (let calendar of calendars) {
+  console.log(calendars);
+  for (let calendar of [...calendars]) {
     let div = document.createElement('div');
     let inputPreset1 = document.createElement('input');
     let slash = document.createElement('span')
@@ -92,9 +91,11 @@ function init() {
   injectScript('libs/jquery-latest.min.js', function() {
     jQuery.noConflict();
     injectScript('utils.js', function() {
-      constructOptions(calendars);
-      restorePresetsOntoForm();
-    })
+      chrome.storage.sync.get(storageIdForAllCalendars, function(data) {
+        constructOptions(data[storageIdForAllCalendars]);
+        restorePresetsOntoForm();
+      });
+    });
   });
 }
 

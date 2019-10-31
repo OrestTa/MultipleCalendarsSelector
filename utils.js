@@ -1,6 +1,7 @@
 // console.log("Installing Google Calendar Presets: Utils...");
 
 const storageIdForPresets = 'presets';
+const storageIdForAllCalendars = 'allCalendars';
 
 function storePresets(presets) {
     chrome.storage.sync.set({[storageIdForPresets]: serialisePresetsForStorage(presets)}, null)
