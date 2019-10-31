@@ -7,15 +7,6 @@ let presetAllButton = document.getElementById('presetAll');
 let presetNoneButton = document.getElementById('presetNone');
 let openOptionsButton = document.getElementById('openOptions');
 
-// chrome.storage.sync.get('calendarsSet1', function(data) {
-//   changeColor.style.backgroundColor = data.color;
-//   changeColor.setAttribute('value', data.color);
-// });
-
-// changeColor.onclick = function(element) {
-//   let color = element.target.value;
-// };
-
 initCalendarsButtonButton.onclick = function(element) {
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
     chrome.tabs.executeScript(
@@ -28,7 +19,7 @@ preset1Button.onclick = function(element) {
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
     chrome.tabs.executeScript(
         tabs[0].id,
-        {code: 'focusCalendars(calendarsPreset1)'});
+        {code: 'focusCalendars("1")'});
   });
 };
 
@@ -36,7 +27,7 @@ preset2Button.onclick = function(element) {
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
     chrome.tabs.executeScript(
         tabs[0].id,
-        {code: 'focusCalendars(calendarsPreset2)'});
+        {code: 'focusCalendars("2")'});
   });
 };
 

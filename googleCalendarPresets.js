@@ -3,10 +3,10 @@ console.log("Installing Google Calendar Presets...");
 const myCalendarsLabel = "My calendars"; // TODO
 const otherCalendarsLabel = "Other calendars"; // TODO
 
-var calendarsPreset1; //TODO
-var calendarsPreset2; //TODO
+const preset1Id = '1'; // TODO
+const preset2Id = '2'; // TODO
 
-var presets;
+var presets= {};
 var allCalendars;
 
 function initCalendars() {
@@ -15,23 +15,23 @@ function initCalendars() {
     calendarsPreset1 = new Set();
     calendarsPreset2 = new Set();
 
-    getAndDeserialisePresetsFromStorage(function(presets) {
-        const presetsFromStorage = presets;
+    getAndDeserialisePresetsFromStorage(function(presetsFromStorage) {
         const myCalendarsFromDiv = findCalendarsInDiv(myCalendarsDiv);
         const otherCalendarsFromDiv = findCalendarsInDiv(otherCalendarsDiv);
 
-        presets.forEach(function(preset) {
-            console.log(preset);
+        const presetIds = Object.keys(presetsFromStorage);
+        presetIds.forEach(function(presetId) {
+            console.log(presetsFromStorage [presetId]);
         })
     });
 
     const myCalendarsDiv = jQuery( "[aria-label='" + myCalendarsLabel + "']" )
     const otherCalendarsDiv = jQuery( "[aria-label='" + otherCalendarsLabel + "']" )
 
-    calendarsPreset1 = findCalendarsInDiv(myCalendarsDiv);
-    calendarsPreset2 = findCalendarsInDiv(otherCalendarsDiv);
-    calendarsPreset1.forEach(item => allCalendars.add(item));
-    calendarsPreset2.forEach(item => allCalendars.add(item));
+    presets[preset1Id] = findCalendarsInDiv(myCalendarsDiv);
+    presets[preset2Id] = findCalendarsInDiv(otherCalendarsDiv);
+    presets[preset1Id].forEach(item => allCalendars.add(item));
+    presets[preset2Id].forEach(item => allCalendars.add(item));
     
     console.log("Initialised Google Calendar Presets with " + allCalendars.size + " calendars");
 
@@ -66,10 +66,10 @@ function setStateOnCalendars(calendars, state) {
     });
 }
 
-function focusCalendars(calendars) {
-    const calendarsToHide = new Set([...allCalendars].filter(x => !calendars.has(x)));
+function focusCalendars(presetId) {
+    const calendarsToHide = new Set([...allCalendars].filter(x => !presets[presetId].has(x)));
     setStateOnCalendars(calendarsToHide, "false");
-    setStateOnCalendars(calendars, "true");
+    setStateOnCalendars(presets[presetId], "true");
 }
 
 jQuery(document).ready(function() {
