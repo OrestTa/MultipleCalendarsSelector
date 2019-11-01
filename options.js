@@ -1,35 +1,40 @@
 'use strict';
 
-let presetForm = document.getElementById('presetForm');
+let presetTable = document.getElementById('presetTable');
 let presetFormSubmitButton = document.getElementById('presetFormSubmitButton');
 
 var tracker;
 
 function constructOptions(calendars) {
   for (let calendar of [...calendars]) {
-    let div = document.createElement('div');
+    let tr = document.createElement('tr');
+
+    let td1 = document.createElement('td');
     let inputPreset1 = document.createElement('input');
-    let slash = document.createElement('span')
+    tr.appendChild(td1);
+
+    let td2 = document.createElement('td');
     let inputPreset2 = document.createElement('input');
-    let span = document.createElement('span');
+    tr.appendChild(td2);
+
+    let tdName = document.createElement('td');
+    let spanName = document.createElement('span');
+    tr.appendChild(tdName);
 
     inputPreset1.type = "checkbox";
     inputPreset1.setAttribute('preset', preset1Id);
     inputPreset1.setAttribute('calendar', calendar);
-
-    slash.textContent = "/";
+    td1.appendChild(inputPreset1);
 
     inputPreset2.type = "checkbox";
     inputPreset2.setAttribute('preset', preset2Id);
     inputPreset2.setAttribute('calendar', calendar);
+    td2.appendChild(inputPreset2);
 
-    span.textContent = calendar;
+    spanName.textContent = calendar;
+    tdName.appendChild(spanName);
 
-    div.appendChild(inputPreset1);
-    div.appendChild(slash);
-    div.appendChild(inputPreset2);
-    div.appendChild(span);
-    presetForm.prepend(div);
+    presetTable.appendChild(tr);
   }
 
   presetFormSubmitButton.addEventListener('click', function() {

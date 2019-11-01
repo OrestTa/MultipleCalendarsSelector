@@ -44,7 +44,7 @@ function getAndDeserialisePresetsFromStorage(callbackSuccess, callbackFailure) {
 const calendarNameStringsToStrip = ['Loading...', //g, //g]; // TODO: Put in options for user-implemented i18n
 
 function namesFromCalendarJQObjects(calendarJQObjects) {
-    return [...calendarJQObjects].reverse().map(calendarJQObject => { // TODO: Add explicit ordering
+    return [...calendarJQObjects].map(calendarJQObject => {
         var calendarName = calendarJQObject.text();
         for (i = 0; i < calendarNameStringsToStrip.length; i++) {
             calendarName = calendarName.replace(calendarNameStringsToStrip[i], '');

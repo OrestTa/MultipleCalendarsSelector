@@ -1,0 +1,10 @@
+table, th, td {
+    border: 1px solid grey;
+    border-collapse: collapse;
+}
+
+button {
+  height: 30px;
+  width: 150px;
+  outline: none;
+}
