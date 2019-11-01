@@ -77,22 +77,22 @@ function restorePresetsOntoForm() {
   });
 }
 
-function analyticsAllowed() { // TODO
-  service.getConfig().addCallback(
-    /** @param {!analytics.Config} config */
-    function(config) {
-      var permitted = myApp.askUser('Allow anonymous usage tracking?');
-      config.setTrackingPermitted(permitted);
-      // If "permitted" is false the library will automatically stop
-      // sending information to Google Analytics and will persist this
-      // behavior automatically.
-    });
+function initAnalyticsConfig(config) {
+  document.getElementById('settings-loading').hidden = true;
+  document.getElementById('settings-loaded').hidden = false;
+
+  var checkbox = document.getElementById('tracking-permitted');
+  checkbox.checked = config.isTrackingPermitted();
+  checkbox.onchange = function() {
+    config.setTrackingPermitted(checkbox.checked);
+  };
 }
 
 function init() {
   chrome.storage.sync.get(storageIdForAllCalendars, function(data) {
     constructOptions(data[storageIdForAllCalendars]);
     restorePresetsOntoForm();
+    getAnalyticsService().getConfig().addCallback(initAnalyticsConfig);
     tracker = getAnalyticsTracker();
     tracker.sendAppView('OptionsView');
     tracker.sendEvent('Options', 'Init done', '');
