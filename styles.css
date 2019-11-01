@@ -1,10 +1,19 @@
 table, th, td {
     border: 1px solid grey;
     border-collapse: collapse;
+    padding: 4px 6px 4px 6px;
+}
+
+td {
+  text-align: center;
 }
 
 button {
   height: 30px;
   width: 150px;
   outline: none;
+}
+
+td.name, th.name {
+  text-align: left;
 }

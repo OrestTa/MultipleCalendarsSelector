@@ -18,6 +18,7 @@ function constructOptions(calendars) {
     tr.appendChild(td2);
 
     let tdName = document.createElement('td');
+    tdName.className = "name";
     let spanName = document.createElement('span');
     tr.appendChild(tdName);
 
