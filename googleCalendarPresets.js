@@ -73,6 +73,7 @@ function setStateOnCalendars(calendars, state) {
 }
 
 function focusCalendars(presetId) {
+    tracker.sendEvent('Main', 'Focusing done', '');
     getAndDeserialisePresetsFromStorage(function(presets) {
         const calendarJQObjects = calendarJQObjectsFromNames(presets[presetId], allCalendars)
         const calendarsToHide = new Set([...allCalendars].filter(x => !calendarJQObjects.has(x)));
@@ -84,10 +85,12 @@ function focusCalendars(presetId) {
 }
 
 function hideAllCalendars() {
+    tracker.sendEvent('Main', 'Hiding done', '');
     setStateOnCalendars(allCalendars, "false");
 }
 
 function showAllCalendars() {
+    tracker.sendEvent('Main', 'Showing all done', '');
     setStateOnCalendars(allCalendars, "true");
 }
 
