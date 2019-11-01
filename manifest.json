@@ -1,39 +1,49 @@
 {
+  "manifest_version": 2,
   "name": "Google Calendar Presets",
   "version": "1.0",
+  "default_locale": "en",
   "description": "Allows you to easily jump between different sets of displayed calendars on Google Calendar",
-  "permissions": ["activeTab", 
-    "declarativeContent", 
-    "storage", 
-    "https://www.google-analytics.com/"],
-  "options_page": "options.html",
-  "background": {
-    "scripts": ["background.js"],
-    "persistent": false
+  "author": "Orest Tarasiuk",
+  "icons": {
+    "16": "images/icon16.png",
+    "32": "images/icon32.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
   },
   "page_action": {
     "default_popup": "popup.html",
     "default_icon": {
-      "16": "images/get_started16.png",
-      "32": "images/get_started32.png",
-      "48": "images/get_started48.png",
-      "128": "images/get_started128.png"
+      "16": "images/icon16.png",
+      "32": "images/icon32.png",
+      "48": "images/icon48.png",
+      "128": "images/icon128.png"
     }
   },
-  "icons": {
-    "16": "images/get_started16.png",
-    "32": "images/get_started32.png",
-    "48": "images/get_started48.png",
-    "128": "images/get_started128.png"
+  "permissions": [
+    "activeTab", 
+    "declarativeContent", 
+    "storage", 
+    "https://www.google-analytics.com/"
+  ],
+  "options_page": "options.html",
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "persistent": false
   },
-  "manifest_version": 2,
   "content_scripts": [
     {
-      "matches": ["https://calendar.google.com/*"],
-      "js": ["libs/jquery-latest.min.js", 
+      "matches": [
+        "https://calendar.google.com/*"
+      ],
+      "js": [
+        "libs/jquery-latest.min.js", 
         "libs/google-analytics-bundle.js", 
         "utils.js", 
-        "googleCalendarPresets.js"]
+        "googleCalendarPresets.js"
+      ]
     }
   ]
 }
