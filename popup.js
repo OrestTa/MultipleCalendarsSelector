@@ -54,5 +54,5 @@ presetNoneButton.onclick = function(element) {
 };
 
 openOptionsButton.onclick = function(element) {
-  chrome.tabs.create({ 'url': 'chrome://extensions/?options=' + chrome.runtime.id });
+  chrome.tabs.create({ 'url': 'chrome-extension://' + chrome.runtime.id + '/options.html' });
 }
