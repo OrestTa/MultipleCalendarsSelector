@@ -3,6 +3,8 @@
 let presetForm = document.getElementById('presetForm');
 let presetFormSubmitButton = document.getElementById('presetFormSubmitButton');
 
+var tracker;
+
 function constructOptions(calendars) {
   for (let calendar of [...calendars]) {
     let div = document.createElement('div');
@@ -87,30 +89,13 @@ function analyticsAllowed() { // TODO
     });
 }
 
-function injectScript(pathToScript, callback) {
-  (function(e,s){
-    e.src=s;
-    e.onload=function(){
-      callback()
-    };
-    document.head.appendChild(e);
-  })(document.createElement('script'), pathToScript);  
-}
-
 function init() {
-  injectScript('libs/google-analytics-bundle.js', function() {
-    injectScript('libs/jquery-latest.min.js', function() {
-      jQuery.noConflict();
-      injectScript('utils.js', function() {
-        chrome.storage.sync.get(storageIdForAllCalendars, function(data) {
-          constructOptions(data[storageIdForAllCalendars]);
-          restorePresetsOntoForm();
-          initAnalytics();
-          tracker.sendAppView('OptionsView');
-          tracker.sendEvent('Options', 'Init done', '');
-        });
-      });
-    });
+  chrome.storage.sync.get(storageIdForAllCalendars, function(data) {
+    constructOptions(data[storageIdForAllCalendars]);
+    restorePresetsOntoForm();
+    tracker = getAnalyticsTracker();
+    tracker.sendAppView('OptionsView');
+    tracker.sendEvent('Options', 'Init done', '');
   });
 }
 

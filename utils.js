@@ -59,9 +59,7 @@ function calendarJQObjectsFromNames(calendarNames, allCalendars) {
 
 // Analytics
 
-var tracker;
-
-function initAnalytics() {
+function getAnalyticsTracker() {
     var service = analytics.getService('googleCalendarPresetsExtension');
-    tracker = service.getTracker('UA-151273087-1');
+    return service.getTracker('UA-151273087-1');
 }

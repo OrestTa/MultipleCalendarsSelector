@@ -7,6 +7,12 @@ let presetAllButton = document.getElementById('presetAll');
 let presetNoneButton = document.getElementById('presetNone');
 let openOptionsButton = document.getElementById('openOptions');
 
+var tracker;
+
+tracker = getAnalyticsTracker();
+tracker.sendAppView('PopupView');
+tracker.sendEvent('Popup', 'Render done', '');
+
 initCalendarsButtonButton.onclick = function(element) {
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
     chrome.tabs.executeScript(
