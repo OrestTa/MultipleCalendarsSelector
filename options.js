@@ -90,7 +90,11 @@ function initAnalyticsConfig(config) {
 
 function init() {
   chrome.storage.sync.get(storageIdForAllCalendars, function(data) {
-    constructOptions(data[storageIdForAllCalendars]);
+    var allCalendars = data[storageIdForAllCalendars];
+    if (typeof(allCalendars)==="undefined") {
+      allCalendars = new Set();
+    }
+    constructOptions(allCalendars);
     restorePresetsOntoForm();
     getAnalyticsService().getConfig().addCallback(initAnalyticsConfig);
     tracker = getAnalyticsTracker();
