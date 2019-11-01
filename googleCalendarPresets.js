@@ -6,6 +6,9 @@ const otherCalendarsLabel = "Other calendars"; // TODO: Put in options for user-
 var allCalendars;
 
 function initExtension() {
+    initAnalytics();
+    tracker.sendAppView('MainView');
+    tracker.sendEvent('Main', 'Init done', '');
     // Restore saved presets, then check for further (new) calendars
     getAndDeserialisePresetsFromStorage(function(presets) {
         initCalendars(presets);

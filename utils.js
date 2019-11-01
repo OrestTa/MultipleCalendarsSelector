@@ -56,3 +56,12 @@ function namesFromCalendarJQObjects(calendarJQObjects) {
 function calendarJQObjectsFromNames(calendarNames, allCalendars) {
     return new Set([...allCalendars].filter(calendar => new RegExp([...calendarNames].join('|')).test(calendar.text())));
 }
+
+// Analytics
+
+var tracker;
+
+function initAnalytics() {
+    var service = analytics.getService('googleCalendarPresetsExtension');
+    tracker = service.getTracker('UA-151273087-1');
+}

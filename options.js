@@ -75,6 +75,18 @@ function restorePresetsOntoForm() {
   });
 }
 
+function analyticsAllowed() { // TODO
+  service.getConfig().addCallback(
+    /** @param {!analytics.Config} config */
+    function(config) {
+      var permitted = myApp.askUser('Allow anonymous usage tracking?');
+      config.setTrackingPermitted(permitted);
+      // If "permitted" is false the library will automatically stop
+      // sending information to Google Analytics and will persist this
+      // behavior automatically.
+    });
+}
+
 function injectScript(pathToScript, callback) {
   (function(e,s){
     e.src=s;
@@ -86,12 +98,17 @@ function injectScript(pathToScript, callback) {
 }
 
 function init() {
-  injectScript('libs/jquery-latest.min.js', function() {
-    jQuery.noConflict();
-    injectScript('utils.js', function() {
-      chrome.storage.sync.get(storageIdForAllCalendars, function(data) {
-        constructOptions(data[storageIdForAllCalendars]);
-        restorePresetsOntoForm();
+  injectScript('libs/google-analytics-bundle.js', function() {
+    injectScript('libs/jquery-latest.min.js', function() {
+      jQuery.noConflict();
+      injectScript('utils.js', function() {
+        chrome.storage.sync.get(storageIdForAllCalendars, function(data) {
+          constructOptions(data[storageIdForAllCalendars]);
+          restorePresetsOntoForm();
+          initAnalytics();
+          tracker.sendAppView('OptionsView');
+          tracker.sendEvent('Options', 'Init done', '');
+        });
       });
     });
   });
