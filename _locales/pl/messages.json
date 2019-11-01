@@ -4,5 +4,20 @@
   },
   "otherCalendarsLabel": {
     "message": "Inne kalendarze"
+  },
+  "preset": {
+    "message": "Zestaw"
+  },
+  "displayAllCalendars": {
+    "message": "Wyświetl wszystkie kalendarze"
+  },
+  "hideAllCalendars": {
+    "message": "Ukryj wszystkie kalendarze"
+  },
+  "extensionOptions": {
+    "message": "Ustawienia rozszerzenia"
+  },
+  "refreshCalendars": {
+    "message": "Odśwież kalendarze"
   }
 }
