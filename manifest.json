@@ -3,7 +3,7 @@
   "name": "Google Calendar Set Selector",
   "version": "1.1",
   "default_locale": "en",
-  "description": "Allows you to quickly display just the group of calendars that you want (on Google Calendar)",
+  "description": "Allows you to quickly display just the group of calendars that you want (on Google Calendar).",
   "author": "Orest Tarasiuk",
   "icons": {
     "16": "images/icon16.png",
