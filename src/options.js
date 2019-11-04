@@ -5,32 +5,44 @@ let presetFormSubmitButton = document.getElementById('presetFormSubmitButton');
 
 var tracker;
 
-function constructOptions(calendars) {
+function constructOptions(presets, calendars) {
+  let trHeader = document.createElement('tr');
+  const presetIds = Object.keys(presets);
+  
+  presetIds.forEach(function(presetId) {
+    let th = document.createElement('th');
+    trHeader.appendChild(th);
+    let presetNameInput = document.createElement('input');
+    presetNameInput.type = "text";
+    presetNameInput.setAttribute("presetId", presetId);
+    presetNameInput.value = presets[presetId].name;
+    th.appendChild(presetNameInput);
+  });
+  let thCalendarNameHeader = document.createElement('th');
+  thCalendarNameHeader.className = "calendarName"
+  let spanCalendarNameHeader = document.createElement('span');
+  spanCalendarNameHeader.textContent = "Calendar Name"; // TODO: i18n
+  thCalendarNameHeader.appendChild(spanCalendarNameHeader);
+  trHeader.appendChild(thCalendarNameHeader);
+  presetTable.appendChild(trHeader);
+
   for (let calendar of [...calendars]) {
     let tr = document.createElement('tr');
 
-    let td1 = document.createElement('td');
-    let inputPreset1 = document.createElement('input');
-    tr.appendChild(td1);
-
-    let td2 = document.createElement('td');
-    let inputPreset2 = document.createElement('input');
-    tr.appendChild(td2);
+    presetIds.forEach(function(presetId) {
+      let td = document.createElement('td');
+      let input = document.createElement('input');
+      tr.appendChild(td);
+      input.type = "checkbox";
+      input.setAttribute('presetId', presetId);
+      input.setAttribute('calendar', calendar);
+      td.appendChild(input);
+    });
 
     let tdName = document.createElement('td');
-    tdName.className = "name";
+    tdName.className = "calendarName";
     let spanName = document.createElement('span');
     tr.appendChild(tdName);
-
-    inputPreset1.type = "checkbox";
-    inputPreset1.setAttribute('preset', preset1Id);
-    inputPreset1.setAttribute('calendar', calendar);
-    td1.appendChild(inputPreset1);
-
-    inputPreset2.type = "checkbox";
-    inputPreset2.setAttribute('preset', preset2Id);
-    inputPreset2.setAttribute('calendar', calendar);
-    td2.appendChild(inputPreset2);
 
     spanName.textContent = calendar;
     tdName.appendChild(spanName);
@@ -45,41 +57,42 @@ function constructOptions(calendars) {
 
 function formToPresets() {
   var presets = {};
+  
+  const presetNames = jQuery("#presetForm :input[type='text']");
+  const checkboxes = jQuery("#presetForm :input[type='checkbox']");
 
-  const inputs = jQuery("#presetForm :input[type='checkbox']");
+  presetNames.each(function() {
+    presets[jQuery(this).attr('presetId')] = {
+      "name": jQuery(this).val(),
+      "calendars": [],
+    };
+  });
 
-  inputs.each(function() {
-    const preset = jQuery(this).attr('preset');
+  checkboxes.each(function() {
+    const presetId = jQuery(this).attr('presetId');
     const calendar = jQuery(this).attr('calendar');
     const checked = jQuery(this).is(':checked');
     if (checked) {
-      if (typeof(presets[preset]) === "undefined") {
-        presets[preset] = new Set();
-      }
-      presets[preset].add(calendar);
+      presets[presetId].calendars.push(calendar);
     }
   });
   
   return presets;
 }
 
-function restorePresetsOntoForm() {
-  getAndDeserialisePresetsFromStorage(function(presets) {
-    const inputs = jQuery("#presetForm :input[type='checkbox']");
-    inputs.each(function() {
-      const currentInput = jQuery(this);
-      const calendar = currentInput.attr('calendar');
-      const presetIds = Object.keys(presets);
-      presetIds.forEach(function(presetId) {
-        if (presets[presetId] && (presets[presetId]).has(calendar)) {
-          if (currentInput.attr('preset') === presetId) {
-            currentInput.attr("checked", true);
-          };
+function restorePresetsOntoForm(presets) {
+  const inputs = jQuery("#presetForm :input[type='checkbox']");
+  inputs.each(function() {
+    const currentInput = jQuery(this);
+    const calendar = currentInput.attr('calendar');
+    const presetIds = Object.keys(presets);
+    presetIds.forEach(function(presetId) {
+      if (presets[presetId] && presets[presetId].calendars.includes(calendar)) {
+        if (currentInput.attr('presetId') === presetId) {
+          currentInput.attr("checked", true);
         };
-      });
+      };
     });
-  }, function(err) {
-    console.log("Couldn't restore presets onto form: " + err);
   });
 }
 
@@ -95,17 +108,21 @@ function initAnalyticsConfig(config) {
 }
 
 function init() {
-  chrome.storage.sync.get(storageIdForAllCalendars, function(data) {
-    var allCalendars = data[storageIdForAllCalendars];
-    if (typeof(allCalendars)==="undefined") {
-      allCalendars = new Set();
-    }
-    constructOptions(allCalendars);
-    restorePresetsOntoForm();
-    getAnalyticsService().getConfig().addCallback(initAnalyticsConfig);
-    tracker = getAnalyticsTracker();
-    tracker.sendAppView('OptionsView');
-    tracker.sendEvent('Options', 'Init done', '');
+  getPresetsFromStorage(function(presets) {
+    chrome.storage.sync.get(storageIdForAllCalendars, function(data) {
+      var allCalendars = data[storageIdForAllCalendars];
+      if (typeof(allCalendars)==="undefined") {
+        allCalendars = [];
+      }
+      constructOptions(presets, allCalendars);
+      restorePresetsOntoForm(presets);
+      getAnalyticsService().getConfig().addCallback(initAnalyticsConfig);
+      tracker = getAnalyticsTracker();
+      tracker.sendAppView('OptionsView');
+      tracker.sendEvent('Options', 'Init done', '');
+    });
+  }, function(err) {
+    console.log("Couldn't load presets: " + err);
   });
 }
 

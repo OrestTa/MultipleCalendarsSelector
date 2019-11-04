@@ -12,7 +12,7 @@ function initExtension() {
     tracker.sendAppView('MainView');
     tracker.sendEvent('Main', 'Init done', '');
     // Restore saved presets, then check for further (new) calendars
-    getAndDeserialisePresetsFromStorage(function(presets) {
+    getPresetsFromStorage(function(presets) {
         initCalendars(presets);
     }, function(err) {
         initCalendars(undefined);
@@ -26,7 +26,7 @@ function initCalendars(presets) {
     const myCalendarsFromDiv = findCalendarsInDiv(myCalendarsDiv);
     const otherCalendarsFromDiv = findCalendarsInDiv(otherCalendarsDiv);
 
-    allCalendars = new Set([... myCalendarsFromDiv, ... otherCalendarsFromDiv]);
+    allCalendars = [... myCalendarsFromDiv, ... otherCalendarsFromDiv];
     const allCalendarsNames = namesFromCalendarJQObjects(allCalendars);
     console.log("Found calendars: " + allCalendarsNames);
 
@@ -35,20 +35,26 @@ function initCalendars(presets) {
     if (typeof(presets)==="undefined" || Object.keys(presets).length == 0) {
         console.log("No presets found, initialising with defaults");
         var presets = {};
-        presets[preset1Id] = namesFromCalendarJQObjects(myCalendarsFromDiv);
-        presets[preset2Id] = namesFromCalendarJQObjects(otherCalendarsFromDiv);
+        presets[generateId()] = {
+            name: "Preset 1",
+            calendars: namesFromCalendarJQObjects(myCalendarsFromDiv)
+        };
+        presets[generateId()] = {
+            name: "Preset 2",
+            calendars: namesFromCalendarJQObjects(otherCalendarsFromDiv)
+        };
         storePresets(presets);
     }
 
-    console.log("Initialised Google Calendar Presets with " + allCalendars.size + " calendars");
+    console.log("Initialised Google Calendar Presets with " + allCalendars.length + " calendars");
     return allCalendars;
 }
 
 function findCalendarsInDiv(div) {
     // TODO: doesn't take long (lazy) lists into consideration; manual scrolling down needed first — automate this
-    var foundCalendars = new Set();
+    var foundCalendars = [];
     div.find("span:not([class])").each(function(index) {
-        foundCalendars.add(jQuery(this).parent().parent());
+        foundCalendars.push(jQuery(this).parent().parent());
     });
 
     return foundCalendars;
@@ -74,9 +80,9 @@ function setStateOnCalendars(calendars, state) {
 
 function focusCalendars(presetId) {
     tracker.sendEvent('Main', 'Focusing done', '');
-    getAndDeserialisePresetsFromStorage(function(presets) {
+    getPresetsFromStorage(function(presets) {
         const calendarJQObjects = calendarJQObjectsFromNames(presets[presetId], allCalendars)
-        const calendarsToHide = new Set([...allCalendars].filter(x => !calendarJQObjects.has(x)));
+        const calendarsToHide = [...allCalendars].filter(x => !calendarJQObjects.has(x));
         setStateOnCalendars(calendarsToHide, "false");
         setStateOnCalendars(calendarJQObjects, "true");
     }, function(err) {
