@@ -81,13 +81,13 @@ function setStateOnCalendars(calendars, state) {
 function focusCalendars(presetId) {
     tracker.sendEvent('Main', 'Focusing done', '');
     getPresetsFromStorage(function(presets) {
-        const calendarJQObjects = calendarJQObjectsFromNames(presets[presetId], allCalendars)
-        const calendarsToHide = [...allCalendars].filter(x => !calendarJQObjects.has(x));
+        const calendarJQObjects = calendarJQObjectsFromNames(presets[presetId].calendars, allCalendars)
+        const calendarsToHide = [...allCalendars].filter(x => !calendarJQObjects.includes(x));
         setStateOnCalendars(calendarsToHide, "false");
         setStateOnCalendars(calendarJQObjects, "true");
     }, function(err) {
-        console.log("Couldn't focus calendars: " + err);
-    })
+        console.log("Couldn't load presets from storage to focus: " + err);
+    });
 }
 
 function hideAllCalendars() {

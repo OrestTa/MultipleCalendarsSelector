@@ -1,9 +1,32 @@
 'use strict';
 
-let preset1Button = document.getElementById('preset1');
-preset1Button.innerText=chrome.i18n.getMessage("preset") + " 1";
-let preset2Button = document.getElementById('preset2');
-preset2Button.innerText=chrome.i18n.getMessage("preset") + " 2";
+// Open Google Calendar if not currenty the case; only display the actual popup otherwise
+chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+  if (tabs[0].url && !tabs[0].url.includes(googleCalendarUrl)) {
+    chrome.tabs.create({url: googleCalendarUrl});
+  }
+});
+
+const presetSpan = document.getElementById('presetSpan');
+
+getPresetsFromStorage(function(presets) {
+  const presetIds = Object.keys(presets);
+  presetIds.forEach(function(presetId) {
+    let presetFocusButton = document.createElement('button');
+    presetSpan.appendChild(presetFocusButton);
+    presetFocusButton.innerText = presets[presetId].name;
+    presetFocusButton.onclick = function(element) {
+      chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        chrome.tabs.executeScript(
+            tabs[0].id,
+            {code: 'focusCalendars("' + presetId + '")'});
+      });
+    };
+  });
+}, function(err) {
+  console.log("Couldn't load presets from storage for popup: " + err);
+});
+
 let presetAllButton = document.getElementById('presetAll');
 presetAllButton.innerText=chrome.i18n.getMessage("displayAllCalendars");
 let presetNoneButton = document.getElementById('presetNone');
@@ -18,28 +41,6 @@ var tracker;
 tracker = getAnalyticsTracker();
 tracker.sendAppView('PopupView');
 tracker.sendEvent('Popup', 'Render done', '');
-
-chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-  if (tabs[0].url && !tabs[0].url.includes(googleCalendarUrl)) {
-    chrome.tabs.create({url: googleCalendarUrl});
-  }
-});
-
-preset1Button.onclick = function(element) {
-  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-    chrome.tabs.executeScript(
-        tabs[0].id,
-        {code: 'focusCalendars("1")'});
-  });
-};
-
-preset2Button.onclick = function(element) {
-  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-    chrome.tabs.executeScript(
-        tabs[0].id,
-        {code: 'focusCalendars("2")'});
-  });
-};
 
 presetAllButton.onclick = function(element) {
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
