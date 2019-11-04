@@ -2,6 +2,8 @@
 
 // General
 
+const googleCalendarUrl = "https://calendar.google.com/";
+
 const preset1Id = '1'; // TODO: make dynamic
 const preset2Id = '2'; // TODO: make dynamic
 

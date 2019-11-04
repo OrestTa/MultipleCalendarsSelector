@@ -19,6 +19,12 @@ tracker = getAnalyticsTracker();
 tracker.sendAppView('PopupView');
 tracker.sendEvent('Popup', 'Render done', '');
 
+chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+  if (tabs[0].url && !tabs[0].url.includes(googleCalendarUrl)) {
+    chrome.tabs.create({url: googleCalendarUrl});
+  }
+});
+
 preset1Button.onclick = function(element) {
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
     chrome.tabs.executeScript(
@@ -52,7 +58,7 @@ presetNoneButton.onclick = function(element) {
 };
 
 openOptionsButton.onclick = function(element) {
-  chrome.tabs.create({ 'url': 'chrome-extension://' + chrome.runtime.id + '/options.html' });
+  chrome.tabs.create({ url: 'chrome-extension://' + chrome.runtime.id + '/options.html' });
 }
 
 initCalendarsButtonButton.onclick = function(element) {
