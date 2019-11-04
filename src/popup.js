@@ -58,13 +58,13 @@ presetNoneButton.onclick = function(element) {
 };
 
 openOptionsButton.onclick = function(element) {
-  chrome.tabs.create({ url: 'chrome-extension://' + chrome.runtime.id + '/options.html' });
+  chrome.tabs.create({ url: 'chrome-extension://' + chrome.runtime.id + '/src/options.html' });
 }
 
 initCalendarsButtonButton.onclick = function(element) {
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
     chrome.tabs.executeScript(
         tabs[0].id,
-        {code: 'initCalendars()'});
+        {code: 'initExtension()'});
   });
 };

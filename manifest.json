@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Google Calendar Set Selector",
-  "version": "1.1",
+  "version": "1.2",
   "default_locale": "en",
   "description": "Allows you to quickly display just the group of calendars that you want (on Google Calendar).",
   "author": "Orest Tarasiuk",
@@ -12,7 +12,7 @@
     "128": "images/icon128.png"
   },
   "page_action": {
-    "default_popup": "popup.html",
+    "default_popup": "src/popup.html",
     "default_icon": {
       "16": "images/icon16.png",
       "32": "images/icon32.png",
@@ -26,10 +26,10 @@
     "storage", 
     "https://www.google-analytics.com/"
   ],
-  "options_page": "options.html",
+  "options_page": "src/options.html",
   "background": {
     "scripts": [
-      "background.js"
+      "src/background.js"
     ],
     "persistent": false
   },
@@ -41,8 +41,8 @@
       "js": [
         "libs/jquery-latest.min.js", 
         "libs/google-analytics-bundle.js", 
-        "utils.js", 
-        "googleCalendarPresets.js"
+        "src/utils.js", 
+        "src/googleCalendarPresets.js"
       ]
     }
   ]
