@@ -2,8 +2,27 @@
 
 let presetTable = document.getElementById('presetTable');
 let presetFormSubmitButton = document.getElementById('presetFormSubmitButton');
+let addNewPresetButton = document.getElementById('addNewPreset');
 
 var tracker;
+
+function addNewPreset() {
+  getPresetsFromStorage(function(presets) {
+    const newPresetId = generateId();
+    const newPreset = {
+        name: "New Preset",
+        calendars: [],
+    };
+    presets[newPresetId] = newPreset;
+    storePresets(presets, () => {
+      window.location.reload()
+    });
+  }, function(err) {
+    console.log("Couldn't load presets for adding a new one: " + err);
+  });
+}
+
+addNewPresetButton.onclick = addNewPreset;
 
 function constructOptions(presets, calendars) {
   let trHeader = document.createElement('tr');
@@ -122,7 +141,7 @@ function init() {
       tracker.sendEvent('Options', 'Init done', '');
     });
   }, function(err) {
-    console.log("Couldn't load presets: " + err);
+    console.log("Couldn't load presets for options: " + err);
   });
 }
 

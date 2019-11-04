@@ -20,8 +20,8 @@ function generateId() {
 const storageIdForPresets = 'presets';
 const storageIdForAllCalendars = 'allCalendars';
 
-function storePresets(presets) {
-    chrome.storage.sync.set({[storageIdForPresets]: presets}, null)
+function storePresets(presets, callback) {
+    chrome.storage.sync.set({[storageIdForPresets]: presets}, callback)
 }
 
 function getPresetsFromStorage(callbackSuccess, callbackFailure) {

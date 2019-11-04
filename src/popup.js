@@ -15,6 +15,7 @@ getPresetsFromStorage(function(presets) {
     let presetFocusButton = document.createElement('button');
     presetSpan.appendChild(presetFocusButton);
     presetFocusButton.innerText = presets[presetId].name;
+    presetFocusButton.className = "popup";
     presetFocusButton.onclick = function(element) {
       chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
         chrome.tabs.executeScript(
