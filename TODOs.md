@@ -1,0 +1,18 @@
+TODOs
+- [ ] Premium
+    - [ ] Multiple accounts 
+    - [ ] Teams (share presets across your organisation)
+    - [ ] Save current set as 
+- [ ] support changing div selector text manually 
+- [ ] more reliable discovery
+  - [ ] auto-scroll down
+  - [ ] uncollapse both calendars lists
+- [ ] reordering presets manually
+- [ ] nice preset order
+- [x] multiple presets
+- [x] removing presets
+- [x] named presets
+- [x] open gcal if not current tab
+- [x] add intro screen on installed
+- [x] Refresh cal list on init 
+- [x] Hide all calendars
