@@ -10,7 +10,10 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 const presetSpan = document.getElementById('presetSpan');
 
 getPresetsFromStorage(function(presets) {
-  const presetIds = Object.keys(presets);
+  var presetIds = Object.keys(presets);
+  presetIds.sort((a, b) => {
+    return presets[a].orderValue - presets[b].orderValue;
+  });
   presetIds.forEach(function(presetId) {
     let presetFocusButton = document.createElement('button');
     presetSpan.appendChild(presetFocusButton);

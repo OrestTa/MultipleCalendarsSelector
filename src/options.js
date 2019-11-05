@@ -12,6 +12,7 @@ function addNewPreset() {
     const newPreset = {
         name: "New Preset",
         calendars: [],
+        orderValue: 999,
     };
     presets[newPresetId] = newPreset;
     storePresets(presets, () => {
@@ -32,7 +33,10 @@ function removePreset(presetId) {
 function constructOptions(presets, calendars) {
   let trHeader = document.createElement('tr');
   const presetIds = Object.keys(presets);
-  
+  presetIds.sort((a, b) => {
+    return presets[a].orderValue - presets[b].orderValue;
+  });
+
   presetIds.forEach(function(presetId) {
     let th = document.createElement('th');
     th.className = presetId;
@@ -95,12 +99,15 @@ function formToPresets() {
   
   const presetNames = jQuery("#presetForm :input[type='text']");
   const checkboxes = jQuery("#presetForm :input[type='checkbox']");
+  var orderValue = 0;
 
   presetNames.each(function() {
     presets[jQuery(this).attr('presetId')] = {
       "name": jQuery(this).val(),
       "calendars": [],
+      "orderValue": orderValue,
     };
+    orderValue++;
   });
 
   checkboxes.each(function() {

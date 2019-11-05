@@ -37,11 +37,13 @@ function initCalendars(presets) {
         var presets = {};
         presets[generateId()] = {
             name: "Preset 1",
-            calendars: namesFromCalendarJQObjects(myCalendarsFromDiv)
+            calendars: namesFromCalendarJQObjects(myCalendarsFromDiv),
+            orderValue: 1,
         };
         presets[generateId()] = {
             name: "Preset 2",
-            calendars: namesFromCalendarJQObjects(otherCalendarsFromDiv)
+            calendars: namesFromCalendarJQObjects(otherCalendarsFromDiv),
+            orderValue: 2,
         };
         storePresets(presets);
     }
