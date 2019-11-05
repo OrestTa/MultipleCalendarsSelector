@@ -8,7 +8,7 @@ TODOs
   - [ ] auto-scroll down
   - [ ] uncollapse both calendars lists
 - [ ] reordering presets manually
-- [ ] nice preset order
+- [x] nice preset order
 - [x] multiple presets
 - [x] removing presets
 - [x] named presets
