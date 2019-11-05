@@ -24,18 +24,33 @@ function addNewPreset() {
 
 addNewPresetButton.onclick = addNewPreset;
 
+function removePreset(presetId) {
+  console.log("Deleting preset with ID " + presetId);
+  jQuery('.' + presetId).remove();
+}
+
 function constructOptions(presets, calendars) {
   let trHeader = document.createElement('tr');
   const presetIds = Object.keys(presets);
   
   presetIds.forEach(function(presetId) {
     let th = document.createElement('th');
+    th.className = presetId;
     trHeader.appendChild(th);
     let presetNameInput = document.createElement('input');
     presetNameInput.type = "text";
     presetNameInput.setAttribute("presetId", presetId);
     presetNameInput.value = presets[presetId].name;
+    let removeButton = document.createElement('button');
+    let removeIcon = document.createElement('img');
+    removeIcon.classList = "removeIcon";
+    removeIcon.src = "../images/remove.png";
+    removeButton.appendChild(removeIcon);
+    removeButton.className = "removeButton";
+    removeButton.type = "button";
+    removeButton.onclick = () => { removePreset(presetId); };
     th.appendChild(presetNameInput);
+    th.appendChild(removeButton);
   });
   let thCalendarNameHeader = document.createElement('th');
   thCalendarNameHeader.className = "calendarName"
@@ -50,6 +65,7 @@ function constructOptions(presets, calendars) {
 
     presetIds.forEach(function(presetId) {
       let td = document.createElement('td');
+      td.className = presetId;
       let input = document.createElement('input');
       tr.appendChild(td);
       input.type = "checkbox";

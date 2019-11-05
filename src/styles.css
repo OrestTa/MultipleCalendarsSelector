@@ -17,3 +17,12 @@ button.popup {
 td.calendarName, th.calendarName {
   text-align: left;
 }
+
+input[type=text] {
+  width: 100px;
+  text-align: center;
+}
+
+.removeIcon {
+  height: 10px;
+}
