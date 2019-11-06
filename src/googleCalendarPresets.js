@@ -1,4 +1,4 @@
-console.log("Installing Google Calendar Presets...");
+console.log("Starting Google Calendar Presets...");
 
 const myCalendarsLabel = chrome.i18n.getMessage("myCalendarsLabel") // TODO: Put in options for user-implemented i18n
 const otherCalendarsLabel = chrome.i18n.getMessage("otherCalendarsLabel") ; // TODO: Put in options for user-implemented i18n
