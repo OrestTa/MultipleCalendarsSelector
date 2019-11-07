@@ -9,6 +9,7 @@ TODOs
   - [ ] uncollapse both calendars lists
 - [ ] reordering presets manually
 - [ ] make name consistent across homepage, links, support email, package metadata etc.
+- [ ] refresh cals on popup opened
 - [x] nice preset order
 - [x] multiple presets
 - [x] removing presets
