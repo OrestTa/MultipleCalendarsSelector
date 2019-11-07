@@ -7,6 +7,7 @@ let addNewPresetButton = document.getElementById('addNewPreset');
 var tracker;
 
 function addNewPreset() {
+  tracker.sendEvent('Options', 'Button tapped', 'addNewPreset');
   getPresetsFromStorage(function(presets) {
     const newPresetId = generateId();
     const newPreset = {
@@ -19,14 +20,18 @@ function addNewPreset() {
       window.location.reload()
     });
   }, function(err) {
-    console.log("Couldn't load presets for adding a new one: " + err);
+    const errorMessage = "Couldn't load presets for adding a new one: " + err;
+    tracker.sendEvent('Options', 'Error', errorMessage);
+    console.log(errorMessage);
   });
 }
 
 addNewPresetButton.onclick = addNewPreset;
 
 function removePreset(presetId) {
-  console.log("Deleting preset with ID " + presetId);
+  tracker.sendEvent('Options', 'Button tapped', 'removePreset');
+  const debugMessage = "Deleting preset with ID " + presetId;
+  console.log(debugMessage);
   jQuery('.' + presetId).remove();
 }
 
@@ -90,6 +95,7 @@ function constructOptions(presets, calendars) {
   }
 
   presetFormSubmitButton.addEventListener('click', function() {
+    tracker.sendEvent('Options', 'Button tapped', 'saveChanges');
     storePresets(formToPresets());
   });
 }
@@ -145,7 +151,13 @@ function initAnalyticsConfig(config) {
   var checkbox = document.getElementById('tracking-permitted');
   checkbox.checked = config.isTrackingPermitted();
   checkbox.onchange = function() {
-    config.setTrackingPermitted(checkbox.checked);
+    if (checkbox.checked) {
+      config.setTrackingPermitted(checkbox.checked);
+      tracker.sendEvent('Options', 'Button tapped', 'analyticsEnable');
+    } else {
+      tracker.sendEvent('Options', 'Button tapped', 'analyticsDisable');
+      config.setTrackingPermitted(checkbox.checked);
+    }
   };
 }
 
@@ -164,7 +176,9 @@ function init() {
       tracker.sendEvent('Options', 'Init done', '');
     });
   }, function(err) {
-    console.log("Couldn't load presets for options: " + err);
+    const errorMessage = "Couldn't load presets for options: " + err;
+    tracker.sendEvent('Options', 'Error', errorMessage);
+    console.log(errorMessage);
   });
 }
 
