@@ -7,19 +7,16 @@ var allCalendars;
 
 var tracker;
 
-function initExtension() {
-    tracker = getAnalyticsTracker();
-    tracker.sendAppView('MainView');
-    tracker.sendEvent('Main', 'Init done', '');
+function refreshExtension() {
     // Restore saved presets, then check for further (new) calendars
     getPresetsFromStorage(function(presets) {
-        initCalendars(presets);
+        refreshCalendars(presets);
     }, function(err) {
-        initCalendars(undefined);
+        refreshCalendars(undefined);
     });
 }
 
-function initCalendars(presets) {
+function refreshCalendars(presets) {
     const myCalendarsDiv = jQuery( "[aria-label='" + myCalendarsLabel + "']" )
     const otherCalendarsDiv = jQuery( "[aria-label='" + otherCalendarsLabel + "']" )
 
@@ -54,7 +51,7 @@ function initCalendars(presets) {
         storePresets(presets);
     }
 
-    debugMessage = "Initialised Google Calendar Presets with " + allCalendars.length + " calendars";
+    debugMessage = "Refreshed Google Calendar Presets with " + allCalendars.length + " calendars";
     tracker.sendEvent('Main', 'Debug', debugMessage);
     console.log(debugMessage);
     return allCalendars;
@@ -113,5 +110,8 @@ function showAllCalendars() {
 }
 
 jQuery(document).ready(function() {
-    initExtension();
+    tracker = getAnalyticsTracker();
+    tracker.sendAppView('MainView');
+    tracker.sendEvent('Main', 'Document ready, init started', '');
+    refreshExtension();
 });
