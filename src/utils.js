@@ -1,5 +1,6 @@
 // Google Calendar Presets: Utils
 
+
 // General
 
 const googleCalendarUrl = "https://calendar.google.com/";
@@ -14,6 +15,18 @@ function generateId() {
     }
     return result;
  }
+
+ String.prototype.hashCode = function() {
+    var hash = 0, i, chr;
+    if (this.length === 0) return hash;
+    for (i = 0; i < this.length; i++) {
+      chr   = this.charCodeAt(i);
+      hash  = ((hash << 5) - hash) + chr;
+      hash |= 0; // Convert to 32bit integer
+    }
+    return hash;
+  };
+
 
 // Storage
 
@@ -34,6 +47,7 @@ function getPresetsFromStorage(callbackSuccess, callbackFailure) {
     });
 }
 
+
 // Object helpers
 
 const calendarNameStringsToStrip = ['Loading...', //g, //g]; // TODO: Put in options for user-implemented i18n
@@ -51,6 +65,7 @@ function namesFromCalendarJQObjects(calendarJQObjects) {
 function calendarJQObjectsFromNames(calendarNames, allCalendars) {
     return [...allCalendars].filter(calendar => new RegExp([...calendarNames].join('|')).test(calendar.text()));
 }
+
 
 // Analytics
 

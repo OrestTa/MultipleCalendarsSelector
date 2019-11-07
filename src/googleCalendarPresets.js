@@ -28,12 +28,18 @@ function initCalendars(presets) {
 
     allCalendars = [... myCalendarsFromDiv, ... otherCalendarsFromDiv];
     const allCalendarsNames = namesFromCalendarJQObjects(allCalendars);
-    console.log("Found calendars: " + allCalendarsNames);
+
+    var debugMessage = "Discovered calendars' hash: " + String(allCalendarsNames).hashCode();
+    tracker.sendEvent('Main', 'Debug', debugMessage);
+    tracker.sendEvent('Main', 'Discovered number of calendars', allCalendars.length);
+    console.log(debugMessage);
 
     chrome.storage.sync.set({[storageIdForAllCalendars]: allCalendarsNames}, null)
 
     if (typeof(presets)==="undefined" || Object.keys(presets).length == 0) {
-        console.log("No presets found, initialising with defaults");
+        debugMessage = "No presets found, initialising with defaults";
+        tracker.sendEvent('Main', 'Debug', debugMessage);
+        console.log(debugMessage);
         var presets = {};
         presets[generateId()] = {
             name: "Preset 1",
@@ -48,7 +54,9 @@ function initCalendars(presets) {
         storePresets(presets);
     }
 
-    console.log("Initialised Google Calendar Presets with " + allCalendars.length + " calendars");
+    debugMessage = "Initialised Google Calendar Presets with " + allCalendars.length + " calendars";
+    tracker.sendEvent('Main', 'Debug', debugMessage);
+    console.log(debugMessage);
     return allCalendars;
 }
 
@@ -88,7 +96,9 @@ function focusCalendars(presetId) {
         setStateOnCalendars(calendarsToHide, "false");
         setStateOnCalendars(calendarJQObjects, "true");
     }, function(err) {
-        console.log("Couldn't load presets from storage to focus: " + err);
+        const errorMessage = "Couldn't load presets from storage to focus: " + err;
+        tracker.sendEvent('Main', 'Error', errorMessage);
+        console.log(errorMessage);
     });
 }
 
