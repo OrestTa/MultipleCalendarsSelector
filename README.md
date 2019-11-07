@@ -5,7 +5,7 @@ With this extension, you'll be able to define presets of calendars that can be d
 
 This software is a work-in-progress, so there are some limitations currently:
 
-- If you have many calendars, you will need to scroll down the list once for the extension to discover all of them. You can trigger the extension to refresh its list from the popup appearing after clicking the extension's icon.
+- If you have many calendars, you will need to scroll down the list once for the extension to discover all of them. You can then trigger the extension to refresh its list by tapping its icon on the top right for the popup to appear.
 - The list(s) of your calendars need to be visible (unfolded) for the extension to function.
 - Only English and Polish are supported at the moment.
 

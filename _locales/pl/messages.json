@@ -16,8 +16,5 @@
   },
   "extensionOptions": {
     "message": "Ustawienia"
-  },
-  "refreshCalendars": {
-    "message": "Odśwież kalendarze"
   }
 }
