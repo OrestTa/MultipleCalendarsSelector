@@ -9,6 +9,11 @@ TODOs
   - [ ] uncollapse both calendars lists
 - [ ] reordering presets manually
 - [ ] make name consistent across homepage, links, support email, package metadata etc.
+- [ ] deal with many cals on low-height screen
+- [ ] auto-save changes to options
+- [ ] Gcal Presets: Add version to sent Analytics events 
+- [ ] Add extension update detection using local storage
+- [ ] Add ping to backend to keep alive 
 - [x] refresh cals on popup opened
 - [x] nice preset order
 - [x] multiple presets
