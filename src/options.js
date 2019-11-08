@@ -1,13 +1,13 @@
 'use strict';
 
 let presetTable = document.getElementById('presetTable');
-let presetFormSubmitButton = document.getElementById('presetFormSubmitButton');
 let addNewPresetButton = document.getElementById('addNewPreset');
 
 var tracker;
 
 function addNewPreset() {
   tracker.sendEvent('Options', 'Button tapped', 'addNewPreset');
+  persistPresets();
   getPresetsFromStorage(function(presets) {
     const newPresetId = generateId();
     const newPreset = {
@@ -33,6 +33,7 @@ function removePreset(presetId) {
   const debugMessage = "Deleting preset with ID " + presetId;
   console.log(debugMessage);
   jQuery('.' + presetId).remove();
+  persistPresets();
 }
 
 function constructOptions(presets, calendars) {
@@ -50,6 +51,7 @@ function constructOptions(presets, calendars) {
     presetNameInput.type = "text";
     presetNameInput.setAttribute("presetId", presetId);
     presetNameInput.value = presets[presetId].name;
+    presetNameInput.onchange = persistPresets;
     let removeButton = document.createElement('button');
     let removeIcon = document.createElement('img');
     removeIcon.classList = "removeIcon";
@@ -57,7 +59,7 @@ function constructOptions(presets, calendars) {
     removeButton.appendChild(removeIcon);
     removeButton.className = "removeButton";
     removeButton.type = "button";
-    removeButton.onclick = () => { removePreset(presetId); };
+    removeButton.onclick = () => { removePreset(presetId); }; // TODO: Add alert for confirmation
     th.appendChild(presetNameInput);
     th.appendChild(removeButton);
   });
@@ -80,6 +82,7 @@ function constructOptions(presets, calendars) {
       input.type = "checkbox";
       input.setAttribute('presetId', presetId);
       input.setAttribute('calendar', calendar);
+      input.onchange = persistPresets;
       td.appendChild(input);
     });
 
@@ -93,11 +96,11 @@ function constructOptions(presets, calendars) {
 
     presetTable.appendChild(tr);
   }
+}
 
-  presetFormSubmitButton.addEventListener('click', function() {
-    tracker.sendEvent('Options', 'Button tapped', 'saveChanges');
-    storePresets(formToPresets());
-  });
+function persistPresets() {
+  tracker.sendEvent('Options', 'Presets persisted');
+  storePresets(formToPresets());
 }
 
 function formToPresets() {
