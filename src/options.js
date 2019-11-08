@@ -59,7 +59,7 @@ function constructOptions(presets, calendars) {
     removeButton.appendChild(removeIcon);
     removeButton.className = "removeButton";
     removeButton.type = "button";
-    removeButton.onclick = () => { removePreset(presetId); }; // TODO: Add alert for confirmation
+    removeButton.onclick = () => { if (window.confirm("Are you sure you want to remove this preset?")) removePreset(presetId); };
     th.appendChild(presetNameInput);
     th.appendChild(removeButton);
   });
