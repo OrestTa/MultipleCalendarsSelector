@@ -1,7 +1,5 @@
 'use strict';
 
-const googleCalendarUrl = "https://calendar.google.com/";
-
 chrome.runtime.onInstalled.addListener(function() {
   chrome.tabs.create({ url: googleCalendarUrl });
   chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
@@ -13,3 +11,7 @@ chrome.runtime.onInstalled.addListener(function() {
     }]);
   });
 });
+
+var tracker = getAnalyticsTracker();
+tracker.sendAppView('BackgroundView');
+tracker.sendEvent('Background', 'Extension version', '1.5');

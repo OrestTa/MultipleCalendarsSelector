@@ -29,6 +29,8 @@
   "options_page": "src/options.html",
   "background": {
     "scripts": [
+      "libs/google-analytics-bundle.js",
+      "src/utils.js",
       "src/background.js"
     ],
     "persistent": false
