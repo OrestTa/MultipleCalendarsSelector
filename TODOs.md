@@ -28,4 +28,3 @@
 
 ## Nice-to-haves
 - [ ] Read package version from file for package.json and background.js
-
