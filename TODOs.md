@@ -28,3 +28,4 @@
 
 ## Nice-to-haves
 - [ ] Read package version from file for package.json and background.js
+- [ ] Activate currently open calendar tab instead of creating a new one
