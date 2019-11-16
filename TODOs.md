@@ -1,4 +1,6 @@
-TODOs
+# TODOs
+
+## Important
 - [ ] Premium
     - [ ] Multiple accounts 
     - [ ] Teams (share presets across your organisation)
@@ -11,8 +13,8 @@ TODOs
 - [ ] make name consistent across homepage, links, support email, package metadata etc.
 - [ ] deal with many cals on low-height screen
 - [x] auto-save changes to options
-- [ ] Gcal Presets: Add version to sent Analytics events 
-- [ ] Add extension update detection using local storage
+- [x] Gcal Presets: Add version to sent Analytics events 
+- [x] Add extension update detection using local storage
 - [x] refresh cals on popup opened
 - [x] nice preset order
 - [x] multiple presets
@@ -22,3 +24,8 @@ TODOs
 - [x] add intro screen on installed
 - [x] Refresh cal list on init 
 - [x] Hide all calendars
+
+
+## Nice-to-haves
+- [ ] Read package version from file for package.json and background.js
+
