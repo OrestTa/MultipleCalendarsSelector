@@ -1,6 +1,6 @@
 'use strict';
 
-const currentPackageVersion = 1.6; // TODO
+const currentPackageVersion = chrome.runtime.getManifest().version;
 const storageIdForLastSeenPackageVersion = "lastSeenPackageVersion";
 
 chrome.runtime.onInstalled.addListener(function() {
