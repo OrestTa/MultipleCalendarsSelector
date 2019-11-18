@@ -60,7 +60,7 @@ async function initCalendars(presets) {
         storePresets(presets);
     }
 
-    debugMessage = "Refreshed Google Calendar Presets with " + allCalendars.length + " calendars";
+    debugMessage = "Init Calendars done with " + allCalendars.length + " calendars";
     tracker.sendEvent('Main', 'Debug', debugMessage);
     console.log(debugMessage);
     return allCalendars;

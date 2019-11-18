@@ -10,6 +10,7 @@
 - [ ] reordering presets manually
 - [ ] make name consistent across homepage, links, support email, package metadata etc.
 - [ ] rewrite files for main()
+- [ ] add option for sleep for hiding drawer
 - [x] auto-save changes to options
 - [x] Gcal Presets: Add version to sent Analytics events 
 - [x] Add extension update detection using local storage
