@@ -5,8 +5,8 @@ console.log("Starting Multiple Calendars Selector...");
 const myCalendarsLabel = chrome.i18n.getMessage("myCalendarsLabel") // TODO: Put in options for user-implemented i18n
 const otherCalendarsLabel = chrome.i18n.getMessage("otherCalendarsLabel") ; // TODO: Put in options for user-implemented i18n
 
-var allCalendars;
-var tracker;
+let allCalendars;
+let tracker;
 
 function initExtension(callbackSuccess, callbackFailure) {
     // Restore saved presets, then check for further (new) calendars
@@ -33,10 +33,10 @@ async function refreshAllCalendars() {
 }
 
 async function initCalendars(presets) {
-    var {myCalendarsFromDiv, otherCalendarsFromDiv} = await refreshAllCalendars();
+    let {myCalendarsFromDiv, otherCalendarsFromDiv} = await refreshAllCalendars();
     const allCalendarsNames = namesFromCalendarJQObjects(allCalendars);
 
-    var debugMessage = "Discovered calendars' hash: " + String(allCalendarsNames).hashCode();
+    let debugMessage = "Discovered calendars' hash: " + String(allCalendarsNames).hashCode();
     tracker.sendEvent('Main', 'Debug', debugMessage);
     tracker.sendEvent('Main', 'Discovered number of calendars', allCalendars.length);
     console.log(debugMessage);
@@ -47,7 +47,7 @@ async function initCalendars(presets) {
         debugMessage = "No presets found, initialising with defaults";
         tracker.sendEvent('Main', 'Debug', debugMessage);
         console.log(debugMessage);
-        var presets = {};
+        let presets = {};
         presets[generateId()] = {
             name: "Preset 1",
             calendars: namesFromCalendarJQObjects(myCalendarsFromDiv),
@@ -142,7 +142,7 @@ function getCalendarDivs() {
 }
 
 function findCalendarsInDiv(div) {
-    var foundCalendars = [];
+    let foundCalendars = [];
     div.find("span:not([class])").each(function(index) {
         foundCalendars.push(jQuery(this).parent().parent());
     });

@@ -30,7 +30,7 @@ function checkForVersionUpgrade() {
   });
 }
 
-var tracker = getAnalyticsTracker();
+let tracker = getAnalyticsTracker();
 tracker.sendAppView('BackgroundView');
 tracker.sendEvent('Background', 'Extension version', currentPackageVersion);
 

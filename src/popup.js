@@ -1,6 +1,6 @@
 'use strict';
 
-var tracker;
+let tracker;
 
 tracker = getAnalyticsTracker();
 tracker.sendAppView('PopupView');
@@ -39,7 +39,7 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 const presetSpan = document.getElementById('presetSpan');
 
 getPresetsFromStorage(function(presets) {
-  var presetIds = Object.keys(presets);
+  let presetIds = Object.keys(presets);
   presetIds.sort((a, b) => {
     return presets[a].orderValue - presets[b].orderValue;
   });

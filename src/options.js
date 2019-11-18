@@ -3,7 +3,7 @@
 let presetTable = document.getElementById('presetTable');
 let addNewPresetButton = document.getElementById('addNewPreset');
 
-var tracker;
+let tracker;
 
 function addNewPreset() {
   tracker.sendEvent('Options', 'Button tapped', 'addNewPreset');
@@ -102,11 +102,11 @@ function persistPresets() {
 }
 
 function formToPresets() {
-  var presets = {};
+  let presets = {};
   
   const presetNames = jQuery("#presetForm :input[type='text']");
   const checkboxes = jQuery("#presetForm :input[type='checkbox']");
-  var orderValue = 0;
+  let orderValue = 0;
 
   presetNames.each(function() {
     presets[jQuery(this).attr('presetId')] = {
@@ -149,7 +149,7 @@ function initAnalyticsConfig(config) {
   document.getElementById('settings-loading').hidden = true;
   document.getElementById('settings-loaded').hidden = false;
 
-  var checkbox = document.getElementById('tracking-permitted');
+  let checkbox = document.getElementById('tracking-permitted');
   checkbox.checked = config.isTrackingPermitted();
   checkbox.onchange = function() {
     if (checkbox.checked) {
@@ -167,7 +167,7 @@ function init() {
   addNewPresetButton.onclick = addNewPreset;
   getPresetsFromStorage(function(presets) {
     chrome.storage.sync.get(storageIdForAllCalendars, function(data) {
-      var allCalendars = data[storageIdForAllCalendars];
+      let allCalendars = data[storageIdForAllCalendars];
       if (typeof(allCalendars)==="undefined") {
         allCalendars = [];
       }

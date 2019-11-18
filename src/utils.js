@@ -11,17 +11,17 @@ function isDevMode() {
 
 function generateId() {
     const length = 32;
-    var result           = '';
-    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    var charactersLength = characters.length;
-    for ( var i = 0; i < length; i++ ) {
+    let result           = '';
+    let characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let charactersLength = characters.length;
+    for ( let i = 0; i < length; i++ ) {
        result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     return result;
  }
 
  String.prototype.hashCode = function() {
-    var hash = 0, i, chr;
+    let hash = 0, i, chr;
     if (this.length === 0) return hash;
     for (i = 0; i < this.length; i++) {
       chr   = this.charCodeAt(i);
@@ -64,7 +64,7 @@ const calendarNameStringsToStrip = ['Loading...', //g, //g]; // TODO: Put 
 
 function namesFromCalendarJQObjects(calendarJQObjects) {
     return [...calendarJQObjects].map(calendarJQObject => {
-        var calendarName = calendarJQObject.text();
+        let calendarName = calendarJQObject.text();
         for (i = 0; i < calendarNameStringsToStrip.length; i++) {
             calendarName = calendarName.replace(calendarNameStringsToStrip[i], '');
         }
@@ -84,7 +84,7 @@ function getAnalyticsService() {
 }
 
 function getAnalyticsTracker() {
-    var tracker;
+    let tracker;
     if (isDevMode()) {
         tracker = getAnalyticsService().getTracker('DEBUG_DUMMY_TRACKER');
     } else {
