@@ -165,6 +165,7 @@ function initAnalyticsConfig(config) {
 }
 
 function init() {
+  tracker = getAnalyticsTracker();
   getPresetsFromStorage(function(presets) {
     chrome.storage.sync.get(storageIdForAllCalendars, function(data) {
       var allCalendars = data[storageIdForAllCalendars];
@@ -174,7 +175,6 @@ function init() {
       constructOptions(presets, allCalendars);
       restorePresetsOntoForm(presets);
       getAnalyticsService().getConfig().addCallback(initAnalyticsConfig);
-      tracker = getAnalyticsTracker();
       tracker.sendAppView('OptionsView');
       tracker.sendEvent('Options', 'Init done', '');
     });
