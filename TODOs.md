@@ -8,7 +8,7 @@
 - [ ] support changing div selector text manually 
 - [x] more reliable calendar discovery, deal with many cals on low-height screen
 - [ ] reordering presets manually
-- [ ] make name consistent across homepage, links, support email, package metadata etc.
+- [x] make name consistent across homepage, links, support email, package metadata etc.
 - [ ] rewrite files for main()
 - [ ] add option for sleep for hiding drawer
 - [x] auto-save changes to options
