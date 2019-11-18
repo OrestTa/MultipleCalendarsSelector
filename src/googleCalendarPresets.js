@@ -16,12 +16,10 @@ function refreshExtension() {
     });
 }
 
-function refreshCalendars(presets) {
-    const myCalendarsDiv = jQuery( "[aria-label='" + myCalendarsLabel + "']" )
-    const otherCalendarsDiv = jQuery( "[aria-label='" + otherCalendarsLabel + "']" )
-
-    const myCalendarsFromDiv = findCalendarsInDiv(myCalendarsDiv);
-    const otherCalendarsFromDiv = findCalendarsInDiv(otherCalendarsDiv);
+async function refreshCalendars(presets) {
+    const myCalendarsDiv = jQuery("[aria-label='" + myCalendarsLabel + "']")
+    const otherCalendarsDiv = jQuery("[aria-label='" + otherCalendarsLabel + "']")
+    const { myCalendarsFromDiv, otherCalendarsFromDiv } = await shrinkDrawerHeightAndFindCalendars([myCalendarsDiv, otherCalendarsDiv]);
 
     allCalendars = [... myCalendarsFromDiv, ... otherCalendarsFromDiv];
     const allCalendarsNames = namesFromCalendarJQObjects(allCalendars);
@@ -57,8 +55,64 @@ function refreshCalendars(presets) {
     return allCalendars;
 }
 
+async function shrinkDrawerHeightAndFindCalendars(elements) {
+    const invisibleZeroHeightCss = {
+        "height": "0px", 
+        "visibility": "hidden",
+    };
+
+    const dateDrawer = jQuery('#drawerMiniMonthNavigator');
+    dateDrawer.css(invisibleZeroHeightCss);
+
+    const createButton = jQuery("[aria-label='Create']");
+    createButton.css(invisibleZeroHeightCss);
+
+    const createBox = dateDrawer.parent().parent().children().first();
+    createBox.css(invisibleZeroHeightCss);
+
+    const searchDrawer = jQuery('div[role="search"]');
+    searchDrawer.css(invisibleZeroHeightCss);
+
+    for (element of elements) {
+        element.find('div[role="presentation"]').each(function(index) {
+            jQuery(this).addClass('gcpTranslationYZero');
+        });
+        element.addClass('gcpHeightZero');
+    };
+
+    const calendarListButtons = jQuery("div[aria-expanded='true']");
+    const myCalendarsButton = calendarListButtons[1];
+    const otherCalendarsButton = calendarListButtons[2];
+    myCalendarsButton.click();
+    otherCalendarsButton.click();
+    await sleep(300); // TODO: Options
+    myCalendarsButton.click();
+    otherCalendarsButton.click();
+    await sleep(300); // TODO: Options
+
+    const myCalendarsFromDiv = findCalendarsInDiv(elements[0]);
+    const otherCalendarsFromDiv = findCalendarsInDiv(elements[1]);
+
+    // Restore styling
+    dateDrawer.removeAttr('style');
+    createButton.removeAttr('style');
+    createBox.removeAttr('style');
+    searchDrawer.removeAttr('style');
+
+    for (element of elements) {
+        element.find('div[role="presentation"]').each(function(index) {
+            jQuery(this).removeClass('gcpTranslationYZero');
+        });
+        element.removeClass('gcpHeightZero');
+    };
+
+    return {
+        myCalendarsFromDiv: myCalendarsFromDiv,
+        otherCalendarsFromDiv: otherCalendarsFromDiv,
+    }
+}
+
 function findCalendarsInDiv(div) {
-    // TODO: doesn't take long (lazy) lists into consideration; manual scrolling down needed first — automate this
     var foundCalendars = [];
     div.find("span:not([class])").each(function(index) {
         foundCalendars.push(jQuery(this).parent().parent());
@@ -113,5 +167,6 @@ jQuery(document).ready(function() {
     tracker = getAnalyticsTracker();
     tracker.sendAppView('MainView');
     tracker.sendEvent('Main', 'Document ready, init started', '');
+
     refreshExtension();
 });

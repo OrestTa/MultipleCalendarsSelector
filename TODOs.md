@@ -6,12 +6,10 @@
     - [ ] Teams (share presets across your organisation)
     - [ ] Save current set as 
 - [ ] support changing div selector text manually 
-- [ ] more reliable discovery
-  - [ ] auto-scroll down
-  - [ ] uncollapse both calendars lists
+- [x] more reliable calendar discovery, deal with many cals on low-height screen
 - [ ] reordering presets manually
 - [ ] make name consistent across homepage, links, support email, package metadata etc.
-- [ ] deal with many cals on low-height screen
+- [ ] rewrite files for main()
 - [x] auto-save changes to options
 - [x] Gcal Presets: Add version to sent Analytics events 
 - [x] Add extension update detection using local storage
@@ -27,5 +25,5 @@
 
 
 ## Nice-to-haves
-- [ ] Read package version from file for package.json and background.js
+- [x] Read package version from file for package.json and background.js
 - [ ] Activate currently open calendar tab instead of creating a new one

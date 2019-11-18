@@ -45,6 +45,9 @@
         "libs/google-analytics-bundle.js", 
         "src/utils.js", 
         "src/googleCalendarPresets.js"
+      ],
+      "css": [
+        "src/stylesCalendar.css"
       ]
     }
   ]
