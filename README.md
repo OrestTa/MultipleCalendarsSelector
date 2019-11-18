@@ -25,7 +25,7 @@ For the latest version of this Privacy Policy, please refer to the extension det
 
 ## Homepage
 
-Hosted at [https://otrsk.github.io/GoogleCalendarPresets/](https://otrsk.github.io/GoogleCalendarPresets/).
+Hosted at [https://otrsk.github.io/MultipleCalendarsSelector/](https://otrsk.github.io/MultipleCalendarsSelector/).
 
 
 ## Credits

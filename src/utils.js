@@ -80,7 +80,7 @@ function calendarJQObjectsFromNames(calendarNames, allCalendars) {
 // Analytics
 
 function getAnalyticsService() {
-    return analytics.getService('googleCalendarPresetsExtension');
+    return analytics.getService('multipleCalendarsSelectorExtension');
 }
 
 function getAnalyticsTracker() {

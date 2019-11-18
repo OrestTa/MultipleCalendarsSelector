@@ -44,7 +44,7 @@
         "libs/jquery-latest.min.js", 
         "libs/google-analytics-bundle.js", 
         "src/utils.js", 
-        "src/googleCalendarPresets.js"
+        "src/main.js"
       ],
       "css": [
         "src/stylesCalendar.css"
