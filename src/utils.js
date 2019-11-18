@@ -5,6 +5,10 @@
 
 const googleCalendarUrl = "https://calendar.google.com/";
 
+function isDevMode() {
+    return !('update_url' in chrome.runtime.getManifest());
+}
+
 function generateId() {
     const length = 32;
     var result           = '';
@@ -74,5 +78,11 @@ function getAnalyticsService() {
 }
 
 function getAnalyticsTracker() {
-    return getAnalyticsService().getTracker('UA-151273087-1');
+    var tracker;
+    if (isDevMode()) {
+        tracker = getAnalyticsService().getTracker('');
+    } else {
+        tracker = getAnalyticsService().getTracker('UA-151273087-1');
+    }
+    return tracker;
 }
