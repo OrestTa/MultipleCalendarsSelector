@@ -194,9 +194,13 @@ async function showAllCalendars() {
     setStateOnCalendars(allCalendars, "true");
 }
 
-jQuery(document).ready(function() {
+function main() {
     tracker = getAnalyticsTracker();
     tracker.sendAppView('MainView');
     tracker.sendEvent('Main', 'Document ready, init started', '');
     initExtension();
+}
+
+jQuery(document).ready(function() {
+    main();
 });

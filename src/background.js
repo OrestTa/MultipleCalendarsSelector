@@ -3,17 +3,25 @@
 const currentPackageVersion = chrome.runtime.getManifest().version;
 const storageIdForLastSeenPackageVersion = "lastSeenPackageVersion";
 
-chrome.runtime.onInstalled.addListener(function() {
-  chrome.tabs.create({ url: googleCalendarUrl });
-  chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
-    chrome.declarativeContent.onPageChanged.addRules([{
-      conditions: [new chrome.declarativeContent.PageStateMatcher({
-        pageUrl: {hostContains: ''},
-      })],
-      actions: [new chrome.declarativeContent.ShowPageAction()]
-    }]);
+function main() {
+  chrome.runtime.onInstalled.addListener(function() {
+    chrome.tabs.create({ url: googleCalendarUrl });
+    chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
+      chrome.declarativeContent.onPageChanged.addRules([{
+        conditions: [new chrome.declarativeContent.PageStateMatcher({
+          pageUrl: {hostContains: ''},
+        })],
+        actions: [new chrome.declarativeContent.ShowPageAction()]
+      }]);
+    });
   });
-});
+  
+  let tracker = getAnalyticsTracker();
+  tracker.sendAppView('BackgroundView');
+  tracker.sendEvent('Background', 'Extension version', currentPackageVersion);
+  
+  checkForVersionUpgrade();
+}
 
 function persistPackageVersion(versionToPersist, callback) {
   console.log("Persisting version " + versionToPersist);
@@ -30,8 +38,4 @@ function checkForVersionUpgrade() {
   });
 }
 
-let tracker = getAnalyticsTracker();
-tracker.sendAppView('BackgroundView');
-tracker.sendEvent('Background', 'Extension version', currentPackageVersion);
-
-checkForVersionUpgrade();
+main();

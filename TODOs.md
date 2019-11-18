@@ -9,7 +9,7 @@
 - [x] more reliable calendar discovery, deal with many cals on low-height screen
 - [ ] reordering presets manually
 - [x] make name consistent across homepage, links, support email, package metadata etc.
-- [ ] rewrite files for main()
+- [x] rewrite files for main()
 - [ ] add option for sleep for hiding drawer
 - [x] auto-save changes to options
 - [x] Gcal Presets: Add version to sent Analytics events 
