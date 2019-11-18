@@ -86,7 +86,7 @@ function getAnalyticsService() {
 function getAnalyticsTracker() {
     var tracker;
     if (isDevMode()) {
-        tracker = getAnalyticsService().getTracker('');
+        tracker = getAnalyticsService().getTracker('DEBUG_DUMMY_TRACKER');
     } else {
         tracker = getAnalyticsService().getTracker('UA-151273087-1');
     }
