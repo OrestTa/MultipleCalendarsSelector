@@ -1,4 +1,4 @@
-// Google Calendar Presets: Utils
+// MultipleCalendarsSelector: Utils
 
 
 // General
