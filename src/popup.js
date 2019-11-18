@@ -15,12 +15,26 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
   }
 });
 
-// Refresh calendars
-chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-  chrome.tabs.executeScript(
-      tabs[0].id,
-      {code: 'refreshExtension()'});
-});
+// // Refresh extension
+// chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+//   chrome.tabs.executeScript(
+//       tabs[0].id,
+//       {code: 'refreshExtension()'});
+// });
+
+// // Refresh calendars
+// chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+//   chrome.tabs.executeScript(
+//       tabs[0].id,
+//       {code: 'refreshAllCalendarsField()'});
+// });
+
+// // Shrink drawer
+// chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+//   chrome.tabs.executeScript(
+//       tabs[0].id,
+//       {code: 'shrinkDrawerHeight()'});
+// });
 
 const presetSpan = document.getElementById('presetSpan');
 

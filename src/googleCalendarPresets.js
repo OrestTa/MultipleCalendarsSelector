@@ -7,19 +7,29 @@ var allCalendars;
 
 var tracker;
 
-function refreshExtension() {
+function refreshExtension(callbackSuccess, callbackFailure) {
     // Restore saved presets, then check for further (new) calendars
     getPresetsFromStorage(function(presets) {
         refreshCalendars(presets);
+        (typeof(callbackSuccess)==="function") && callbackSuccess();
     }, function(err) {
         refreshCalendars(undefined);
+        (typeof(callbackFailure)==="function") && callbackFailure();
     });
 }
 
+async function refreshAllCalendarsField() {
+    await shrinkDrawerHeight();
+    const {myCalendarsDiv, otherCalendarsDiv} = getCalendarDivs();
+    const myCalendarsFromDiv = findCalendarsInDiv(myCalendarsDiv);
+    const otherCalendarsFromDiv = findCalendarsInDiv(otherCalendarsDiv);
+    allCalendars = [... myCalendarsFromDiv, ... otherCalendarsFromDiv];
+    console.log("Refreshed cals for " + allCalendars.length);
+    unshrinkDrawerHeight();
+}
+
 async function refreshCalendars(presets) {
-    const myCalendarsDiv = jQuery("[aria-label='" + myCalendarsLabel + "']")
-    const otherCalendarsDiv = jQuery("[aria-label='" + otherCalendarsLabel + "']")
-    const { myCalendarsFromDiv, otherCalendarsFromDiv } = await shrinkDrawerHeightAndFindCalendars([myCalendarsDiv, otherCalendarsDiv]);
+    const { myCalendarsFromDiv, otherCalendarsFromDiv } = await shrinkDrawerHeightAndFindCalendarsAndUnshrink();
 
     allCalendars = [... myCalendarsFromDiv, ... otherCalendarsFromDiv];
     const allCalendarsNames = namesFromCalendarJQObjects(allCalendars);
@@ -55,7 +65,7 @@ async function refreshCalendars(presets) {
     return allCalendars;
 }
 
-async function shrinkDrawerHeightAndFindCalendars(elements) {
+async function shrinkDrawerHeight() {
     const invisibleZeroHeightCss = {
         "height": "0px", 
         "visibility": "hidden",
@@ -73,12 +83,10 @@ async function shrinkDrawerHeightAndFindCalendars(elements) {
     const searchDrawer = jQuery('div[role="search"]');
     searchDrawer.css(invisibleZeroHeightCss);
 
-    for (element of elements) {
-        element.find('div[role="presentation"]').each(function(index) {
-            jQuery(this).addClass('gcpTranslationYZero');
-        });
-        element.addClass('gcpHeightZero');
-    };
+    const myCalendarsDiv = jQuery("[aria-label='" + myCalendarsLabel + "']")
+    hideCalendarDiv(myCalendarsDiv);
+    const otherCalendarsDiv = jQuery("[aria-label='" + otherCalendarsLabel + "']")
+    hideCalendarDiv(otherCalendarsDiv);
 
     const calendarListButtons = jQuery("div[aria-expanded='true']");
     const myCalendarsButton = calendarListButtons[1];
@@ -90,21 +98,54 @@ async function shrinkDrawerHeightAndFindCalendars(elements) {
     otherCalendarsButton.click();
     await sleep(300); // TODO: Options
 
-    const myCalendarsFromDiv = findCalendarsInDiv(elements[0]);
-    const otherCalendarsFromDiv = findCalendarsInDiv(elements[1]);
+    return {
+        myCalendarsDiv: myCalendarsDiv,
+        otherCalendarsDiv: otherCalendarsDiv,
+    }
+}
 
-    // Restore styling
+function hideCalendarDiv(div) {
+    div.find('div[role="presentation"]').each(function(index) {
+        jQuery(this).addClass('gcpTranslationYZero');
+    });
+    div.addClass('gcpHeightZero');
+}
+
+function unshrinkDrawerHeight() {
+    const dateDrawer = jQuery('#drawerMiniMonthNavigator');
+    const createButton = jQuery("[aria-label='Create']");
+    const createBox = dateDrawer.parent().parent().children().first();
+    const searchDrawer = jQuery('div[role="search"]');
+
     dateDrawer.removeAttr('style');
     createButton.removeAttr('style');
     createBox.removeAttr('style');
     searchDrawer.removeAttr('style');
 
-    for (element of elements) {
-        element.find('div[role="presentation"]').each(function(index) {
+    const {myCalendarsDiv, otherCalendarsDiv} = getCalendarDivs();
+
+    for (calendarDiv of [myCalendarsDiv, otherCalendarsDiv]) {
+        calendarDiv.find('div[role="presentation"]').each(function(index) {
             jQuery(this).removeClass('gcpTranslationYZero');
         });
-        element.removeClass('gcpHeightZero');
+        calendarDiv.removeClass('gcpHeightZero');
     };
+}
+
+function getCalendarDivs() {
+    return {
+        myCalendarsDiv: jQuery("[aria-label='" + myCalendarsLabel + "']"),
+        otherCalendarsDiv: jQuery("[aria-label='" + otherCalendarsLabel + "']")
+    }
+}
+
+async function shrinkDrawerHeightAndFindCalendarsAndUnshrink() {
+    const {myCalendarsDiv, otherCalendarsDiv} = await shrinkDrawerHeight();
+
+    const myCalendarsFromDiv = findCalendarsInDiv(myCalendarsDiv);
+    const otherCalendarsFromDiv = findCalendarsInDiv(otherCalendarsDiv);
+
+    unshrinkDrawerHeight();
 
     return {
         myCalendarsFromDiv: myCalendarsFromDiv,
@@ -117,7 +158,6 @@ function findCalendarsInDiv(div) {
     div.find("span:not([class])").each(function(index) {
         foundCalendars.push(jQuery(this).parent().parent());
     });
-
     return foundCalendars;
 }
 
@@ -139,13 +179,15 @@ function setStateOnCalendars(calendars, state) {
     });
 }
 
-function focusCalendars(presetId) {
+async function focusCalendars(presetId) {
     tracker.sendEvent('Main', 'Focusing done', '');
+    await refreshAllCalendarsField();
     getPresetsFromStorage(function(presets) {
         const calendarJQObjects = calendarJQObjectsFromNames(presets[presetId].calendars, allCalendars)
         const calendarsToHide = [...allCalendars].filter(x => !calendarJQObjects.includes(x));
         setStateOnCalendars(calendarsToHide, "false");
         setStateOnCalendars(calendarJQObjects, "true");
+        console.log(presets[presetId].calendars);
     }, function(err) {
         const errorMessage = "Couldn't load presets from storage to focus: " + err;
         tracker.sendEvent('Main', 'Error', errorMessage);
@@ -153,13 +195,17 @@ function focusCalendars(presetId) {
     });
 }
 
-function hideAllCalendars() {
+async function hideAllCalendars() {
     tracker.sendEvent('Main', 'Hiding done', '');
+    await refreshAllCalendarsField();
+    console.log(namesFromCalendarJQObjects(allCalendars))
     setStateOnCalendars(allCalendars, "false");
 }
 
-function showAllCalendars() {
+async function showAllCalendars() {
     tracker.sendEvent('Main', 'Showing all done', '');
+    await refreshAllCalendarsField();
+    console.log(namesFromCalendarJQObjects(allCalendars))
     setStateOnCalendars(allCalendars, "true");
 }
 
