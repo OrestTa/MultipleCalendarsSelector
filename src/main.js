@@ -1,10 +1,11 @@
+'use strict';
+
 console.log("Starting Multiple Calendars Selector...");
 
 const myCalendarsLabel = chrome.i18n.getMessage("myCalendarsLabel") // TODO: Put in options for user-implemented i18n
 const otherCalendarsLabel = chrome.i18n.getMessage("otherCalendarsLabel") ; // TODO: Put in options for user-implemented i18n
 
 var allCalendars;
-
 var tracker;
 
 function initExtension(callbackSuccess, callbackFailure) {
@@ -125,7 +126,7 @@ function unshrinkDrawerHeight() {
 
     const {myCalendarsDiv, otherCalendarsDiv} = getCalendarDivs();
 
-    for (calendarDiv of [myCalendarsDiv, otherCalendarsDiv]) {
+    for (const calendarDiv of [myCalendarsDiv, otherCalendarsDiv]) {
         calendarDiv.find('div[role="presentation"]').each(function(index) {
             jQuery(this).removeClass('gcpTranslationYZero');
         });
@@ -197,6 +198,5 @@ jQuery(document).ready(function() {
     tracker = getAnalyticsTracker();
     tracker.sendAppView('MainView');
     tracker.sendEvent('Main', 'Document ready, init started', '');
-
     initExtension();
 });

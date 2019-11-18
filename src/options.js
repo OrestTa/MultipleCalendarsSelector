@@ -26,8 +26,6 @@ function addNewPreset() {
   });
 }
 
-addNewPresetButton.onclick = addNewPreset;
-
 function removePreset(presetId) {
   tracker.sendEvent('Options', 'Button tapped', 'removePreset');
   const debugMessage = "Deleting preset with ID " + presetId;
@@ -166,6 +164,7 @@ function initAnalyticsConfig(config) {
 
 function init() {
   tracker = getAnalyticsTracker();
+  addNewPresetButton.onclick = addNewPreset;
   getPresetsFromStorage(function(presets) {
     chrome.storage.sync.get(storageIdForAllCalendars, function(data) {
       var allCalendars = data[storageIdForAllCalendars];
