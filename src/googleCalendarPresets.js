@@ -7,31 +7,32 @@ var allCalendars;
 
 var tracker;
 
-function refreshExtension(callbackSuccess, callbackFailure) {
+function initExtension(callbackSuccess, callbackFailure) {
     // Restore saved presets, then check for further (new) calendars
     getPresetsFromStorage(function(presets) {
-        refreshCalendars(presets);
+        initCalendars(presets);
         (typeof(callbackSuccess)==="function") && callbackSuccess();
     }, function(err) {
-        refreshCalendars(undefined);
+        initCalendars(undefined);
         (typeof(callbackFailure)==="function") && callbackFailure();
     });
 }
 
-async function refreshAllCalendarsField() {
+async function refreshAllCalendars() {
     await shrinkDrawerHeight();
     const {myCalendarsDiv, otherCalendarsDiv} = getCalendarDivs();
     const myCalendarsFromDiv = findCalendarsInDiv(myCalendarsDiv);
     const otherCalendarsFromDiv = findCalendarsInDiv(otherCalendarsDiv);
     allCalendars = [... myCalendarsFromDiv, ... otherCalendarsFromDiv];
-    console.log("Refreshed cals for " + allCalendars.length);
     unshrinkDrawerHeight();
+    return {
+        myCalendarsFromDiv: myCalendarsFromDiv,
+        otherCalendarsFromDiv: otherCalendarsFromDiv,
+    };
 }
 
-async function refreshCalendars(presets) {
-    const { myCalendarsFromDiv, otherCalendarsFromDiv } = await shrinkDrawerHeightAndFindCalendarsAndUnshrink();
-
-    allCalendars = [... myCalendarsFromDiv, ... otherCalendarsFromDiv];
+async function initCalendars(presets) {
+    var {myCalendarsFromDiv, otherCalendarsFromDiv} = await refreshAllCalendars();
     const allCalendarsNames = namesFromCalendarJQObjects(allCalendars);
 
     var debugMessage = "Discovered calendars' hash: " + String(allCalendarsNames).hashCode();
@@ -139,20 +140,6 @@ function getCalendarDivs() {
     }
 }
 
-async function shrinkDrawerHeightAndFindCalendarsAndUnshrink() {
-    const {myCalendarsDiv, otherCalendarsDiv} = await shrinkDrawerHeight();
-
-    const myCalendarsFromDiv = findCalendarsInDiv(myCalendarsDiv);
-    const otherCalendarsFromDiv = findCalendarsInDiv(otherCalendarsDiv);
-
-    unshrinkDrawerHeight();
-
-    return {
-        myCalendarsFromDiv: myCalendarsFromDiv,
-        otherCalendarsFromDiv: otherCalendarsFromDiv,
-    }
-}
-
 function findCalendarsInDiv(div) {
     var foundCalendars = [];
     div.find("span:not([class])").each(function(index) {
@@ -181,13 +168,12 @@ function setStateOnCalendars(calendars, state) {
 
 async function focusCalendars(presetId) {
     tracker.sendEvent('Main', 'Focusing done', '');
-    await refreshAllCalendarsField();
+    await refreshAllCalendars();
     getPresetsFromStorage(function(presets) {
         const calendarJQObjects = calendarJQObjectsFromNames(presets[presetId].calendars, allCalendars)
         const calendarsToHide = [...allCalendars].filter(x => !calendarJQObjects.includes(x));
         setStateOnCalendars(calendarsToHide, "false");
         setStateOnCalendars(calendarJQObjects, "true");
-        console.log(presets[presetId].calendars);
     }, function(err) {
         const errorMessage = "Couldn't load presets from storage to focus: " + err;
         tracker.sendEvent('Main', 'Error', errorMessage);
@@ -197,15 +183,13 @@ async function focusCalendars(presetId) {
 
 async function hideAllCalendars() {
     tracker.sendEvent('Main', 'Hiding done', '');
-    await refreshAllCalendarsField();
-    console.log(namesFromCalendarJQObjects(allCalendars))
+    await refreshAllCalendars();
     setStateOnCalendars(allCalendars, "false");
 }
 
 async function showAllCalendars() {
     tracker.sendEvent('Main', 'Showing all done', '');
-    await refreshAllCalendarsField();
-    console.log(namesFromCalendarJQObjects(allCalendars))
+    await refreshAllCalendars();
     setStateOnCalendars(allCalendars, "true");
 }
 
@@ -214,5 +198,5 @@ jQuery(document).ready(function() {
     tracker.sendAppView('MainView');
     tracker.sendEvent('Main', 'Document ready, init started', '');
 
-    refreshExtension();
+    initExtension();
 });
