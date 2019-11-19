@@ -5,8 +5,8 @@ With this extension, you'll be able to define presets of calendars that can be d
 
 This software is a work-in-progress, so there are some limitations currently:
 
-- The list(s) of your calendars need to be visible (unfolded) for the extension to function.
-- Only English and Polish are supported at the moment.
+- Only English and Polish are supported.
+- Only one Google account per browser profile is supported.
 
 Feel free to reach out to me in case you encounter further issues.
 
