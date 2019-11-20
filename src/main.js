@@ -2,9 +2,7 @@
 
 console.log("Starting Multiple Calendars Selector...");
 
-const myCalendarsLabel = chrome.i18n.getMessage("myCalendarsLabel") // TODO: Put in options for user-implemented i18n
-const otherCalendarsLabel = chrome.i18n.getMessage("otherCalendarsLabel") ; // TODO: Put in options for user-implemented i18n
-
+let calendarListsDiv;
 let allCalendars;
 let tracker;
 
@@ -20,8 +18,8 @@ function initExtension(callbackSuccess, callbackFailure) {
 }
 
 async function refreshAllCalendars() {
-    await shrinkDrawerHeight();
-    const {myCalendarsDiv, otherCalendarsDiv} = getCalendarDivs();
+    calendarListsDiv = jQuery("div[role='complementary']:eq(0)").children();
+    const {myCalendarsDiv, otherCalendarsDiv} = await shrinkDrawerHeight();
     const myCalendarsFromDiv = findCalendarsInDiv(myCalendarsDiv);
     const otherCalendarsFromDiv = findCalendarsInDiv(otherCalendarsDiv);
     allCalendars = [... myCalendarsFromDiv, ... otherCalendarsFromDiv];
@@ -85,9 +83,9 @@ async function shrinkDrawerHeight() {
     const searchDrawer = jQuery('div[role="search"]');
     searchDrawer.css(invisibleZeroHeightCss);
 
-    const myCalendarsDiv = jQuery("[aria-label='" + myCalendarsLabel + "']")
+    const myCalendarsDiv = calendarListsDiv.children().eq(1).children();
     hideCalendarDiv(myCalendarsDiv);
-    const otherCalendarsDiv = jQuery("[aria-label='" + otherCalendarsLabel + "']")
+    const otherCalendarsDiv = calendarListsDiv.children().eq(4).children();
     hideCalendarDiv(otherCalendarsDiv);
 
     const calendarListButtons = jQuery("div[aria-expanded='true']");
@@ -136,8 +134,8 @@ function unshrinkDrawerHeight() {
 
 function getCalendarDivs() {
     return {
-        myCalendarsDiv: jQuery("[aria-label='" + myCalendarsLabel + "']"),
-        otherCalendarsDiv: jQuery("[aria-label='" + otherCalendarsLabel + "']")
+        myCalendarsDiv: calendarListsDiv.children().eq(1).children(),
+        otherCalendarsDiv: calendarListsDiv.children().eq(4).children(),
     }
 }
 

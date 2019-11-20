@@ -5,7 +5,7 @@
     - [ ] Multiple accounts 
     - [ ] Teams (share presets across your organisation)
     - [ ] Save current set as 
-- [ ] support changing div selector text manually 
+- [x] support changing div selector text manually or make this inidependent of the language
 - [x] add version to options
 - [x] more reliable calendar discovery, deal with many cals on low-height screen
 - [ ] reordering presets manually
