@@ -2,6 +2,7 @@
 
 let presetTable = document.getElementById('presetTable');
 let addNewPresetButton = document.getElementById('addNewPreset');
+let versionParagraph = document.getElementById('version');
 
 let tracker;
 
@@ -165,6 +166,8 @@ function initAnalyticsConfig(config) {
 function init() {
   tracker = getAnalyticsTracker();
   addNewPresetButton.onclick = addNewPreset;
+  const currentPackageVersion = chrome.runtime.getManifest().version;
+  versionParagraph.innerText += currentPackageVersion;  
   getPresetsFromStorage(function(presets) {
     chrome.storage.sync.get(storageIdForAllCalendars, function(data) {
       let allCalendars = data[storageIdForAllCalendars];
