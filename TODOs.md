@@ -2,9 +2,9 @@
 
 ## Important
 - [ ] Premium
-    - [ ] Multiple accounts 
+    - [ ] Multiple accounts per browser profile
+    - [ ] Save currently active calendars as new preset
     - [ ] Teams (share presets across your organisation)
-    - [ ] Save current set as 
 - [ ] add option for changing sleep duration when hiding the drawer
 - [x] support changing div selector text manually or make this inidependent of the language
 - [x] add version to options
@@ -28,4 +28,4 @@
 ## Nice-to-haves
 - [x] Read package version from file for package.json and background.js
 - [ ] Activate currently open calendar tab instead of creating a new one
-- [ ] reordering presets manually
+- [ ] Reordering presets manually
