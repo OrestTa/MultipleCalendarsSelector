@@ -1,7 +1,8 @@
 'use strict';
 
-let presetTable = document.getElementById('presetTable');
 let addNewPresetButton = document.getElementById('addNewPreset');
+let presetTable = document.getElementById('presetTable');
+let drawerDelayInput = document.getElementById('drawerDelay');
 let versionParagraph = document.getElementById('version');
 
 let tracker;
@@ -146,6 +147,16 @@ function restorePresetsOntoForm(presets) {
   });
 }
 
+function initDrawerDelayConfig() {
+  drawerDelayInput.onchange = function() {
+    storeDrawerDelay(drawerDelayInput.value);
+  };
+
+  getDrawerDelayFromStorage((drawerDelay) => {
+    drawerDelayInput.value = drawerDelay;
+  });
+}
+
 function initAnalyticsConfig(config) {
   document.getElementById('settings-loading').hidden = true;
   document.getElementById('settings-loaded').hidden = false;
@@ -163,11 +174,18 @@ function initAnalyticsConfig(config) {
   };
 }
 
+function initVersionField() {
+  const currentPackageVersion = chrome.runtime.getManifest().version;
+  versionParagraph.innerText += currentPackageVersion;
+}
+
 function init() {
   tracker = getAnalyticsTracker();
+  initDrawerDelayConfig();
+  getAnalyticsService().getConfig().addCallback(initAnalyticsConfig);
+  initVersionField();
+
   addNewPresetButton.onclick = addNewPreset;
-  const currentPackageVersion = chrome.runtime.getManifest().version;
-  versionParagraph.innerText += currentPackageVersion;  
   getPresetsFromStorage(function(presets) {
     chrome.storage.sync.get(storageIdForAllCalendars, function(data) {
       let allCalendars = data[storageIdForAllCalendars];
@@ -176,7 +194,6 @@ function init() {
       }
       constructOptions(presets, allCalendars);
       restorePresetsOntoForm(presets);
-      getAnalyticsService().getConfig().addCallback(initAnalyticsConfig);
       tracker.sendAppView('OptionsView');
       tracker.sendEvent('Options', 'Init done', '');
     });

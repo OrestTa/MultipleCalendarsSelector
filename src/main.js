@@ -93,15 +93,17 @@ async function shrinkDrawerHeight() {
     const otherCalendarsButton = calendarListButtons[2];
     myCalendarsButton.click();
     otherCalendarsButton.click();
-    await sleep(300); // TODO: Options
+
+    const drawerDelay = await getDrawerDelayFromStorageAsync();
+    await sleep(drawerDelay);
     myCalendarsButton.click();
     otherCalendarsButton.click();
-    await sleep(300); // TODO: Options
+    await sleep(drawerDelay);
 
     return {
         myCalendarsDiv: myCalendarsDiv,
         otherCalendarsDiv: otherCalendarsDiv,
-    }
+    };
 }
 
 function hideCalendarDiv(div) {

@@ -25,19 +25,28 @@
             <li>Finally, refresh this options page.</li>
           </ol>
         </p>
-        <p>Should the problem persist, feel free to reach out to the developer.</p>
+        <p>If this doesn't help, try increasing the configuration value "Delay when hiding the drawer (in ms)" below to a larger number, e. g. to 1000.</p>
+        <p>You can also lower this value in order to speed up the switching process in case you're not experiencing issues.</p>
+        <p>Should your problem persist, feel free to reach out to the developer at <a href="mailto:multiplecalendarsselector@tarasiuk.me">multiplecalendarsselector@tarasiuk.me</a>.</p>
     </div>
     <br/><br/><br/><br/>
     <div>
       <h2>Configuration</h2>
-      <span id ='settings-loading'>Loading...</span>
-      <span id ='settings-loaded'>
-        <form>
-          <input type="checkbox" id='tracking-permitted'>Allow anonymous analytics
-        </form>
-      </span>
-      <br/>
-      <p id='version'>Version:&nbsp;</p>
+      <p id='delay'>
+        Delay when hiding the drawer (in ms): 
+        <input type='text' id='drawerDelay'>
+      </p>
+      <p id='analytics'>
+        <span id='settings-loading'>Loading...</span>
+        <span id='settings-loaded'>
+          <form>
+            Allow anonymous analytics <input type="checkbox" id='tracking-permitted'>
+          </form>
+        </span>
+      </p>
+      <p id='version'>
+        Version:&nbsp;
+      </p>
     </div>
   </body>
   <script src="../libs/google-analytics-bundle.js"></script>

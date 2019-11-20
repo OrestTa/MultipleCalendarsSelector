@@ -5,7 +5,7 @@
     - [ ] Multiple accounts per browser profile
     - [ ] Save currently active calendars as new preset
     - [ ] Teams (share presets across your organisation)
-- [ ] add option for changing sleep duration when hiding the drawer
+- [x] add option for changing sleep duration when hiding the drawer
 - [x] support changing div selector text manually or make this inidependent of the language
 - [x] add version to options
 - [x] more reliable calendar discovery, deal with many cals on low-height screen

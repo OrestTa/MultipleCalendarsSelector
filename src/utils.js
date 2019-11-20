@@ -42,6 +42,7 @@ function sleep(ms){
 
 const storageIdForPresets = 'presets';
 const storageIdForAllCalendars = 'allCalendars';
+const storageIdForDrawerDelay = 'drawerDelay';
 
 function storePresets(presets, callback) {
     chrome.storage.sync.set({[storageIdForPresets]: presets}, callback)
@@ -55,6 +56,32 @@ function getPresetsFromStorage(callbackSuccess, callbackFailure) {
       }
       return callbackSuccess(presets);
     });
+}
+
+function storeDrawerDelay(drawerDelay, callback) {
+    chrome.storage.sync.set({[storageIdForDrawerDelay]: drawerDelay}, callback);
+  }
+  
+function getDrawerDelayFromStorage(callback) {
+    chrome.storage.sync.get(storageIdForDrawerDelay, function(data) {
+        let drawerDelay = data[storageIdForDrawerDelay];
+        if (typeof(drawerDelay)==="undefined") {
+            drawerDelay = 300; // default delay, in ms
+            storeDrawerDelay(drawerDelay);
+        }
+        callback(drawerDelay);
+    });
+}
+
+async function getDrawerDelayFromStorageAsync() {
+    let promise = await new Promise((resolve) => {
+        getDrawerDelayFromStorage(drawerDelay => {
+            resolve(drawerDelay);
+        })
+    })
+    .catch(err => {throw err});
+
+    return promise;
 }
 
 

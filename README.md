@@ -1,4 +1,4 @@
-With this extension, you'll be able to define presets of calendars that can be displayed or hidden with one click.
+With this extension, you'll be able to define presets of multiple calendars that can be displayed or hidden with one click.
 
 
 ## Limitations
