@@ -27,5 +27,5 @@
 
 ## Nice-to-haves
 - [x] Read package version from file for package.json and background.js
-- [ ] Activate currently open calendar tab instead of creating a new one
+- [x] Activate currently open calendar tab instead of creating a new one
 - [ ] Reordering presets manually

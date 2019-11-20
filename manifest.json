@@ -21,9 +21,9 @@
     }
   },
   "permissions": [
-    "activeTab", 
-    "declarativeContent", 
-    "storage", 
+    "tabs",
+    "declarativeContent",
+    "storage",
     "https://www.google-analytics.com/"
   ],
   "options_page": "src/options.html",

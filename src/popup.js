@@ -7,17 +7,35 @@ function main() {
   tracker.sendAppView('PopupView');
   tracker.sendEvent('Popup', 'Icon tapped', '');
   
-  // Open Google Calendar if not currenty the case; only display the actual popup otherwise
-  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-    if (tabs[0].url && !tabs[0].url.includes(googleCalendarUrl)) {
-      tracker.sendEvent('Popup', 'Created calendar tab', '');
-      chrome.tabs.create({url: googleCalendarUrl});
-      return;
+  // Open Google Calendar if not currenty active; only display the actual popup if active
+  chrome.tabs.query({active: true, currentWindow: true}, function(tabsActive) {
+    if (tabsActive[0].url && tabsActive[0].url.includes(googleCalendarUrl)) {
+      tracker.sendEvent('Popup', 'Tapped on a Calendar tab', '');
+      buildPopup();
+    } else {
+      tracker.sendEvent('Popup', 'Tapped outside of a Calendar tab', '');
+      chrome.tabs.query({active: false, currentWindow: true}, function(tabs) {
+        for (const tab of tabs) {
+          if (tab.url && tab.url.includes(googleCalendarUrl)) {
+            tracker.sendEvent('Popup', 'Found open Calendar tab', '');
+            chrome.tabs.highlight(
+                {tabs: tab.index},
+              )
+            return;
+          };
+        };
+        tracker.sendEvent('Popup', 'Created new Calendar tab', '');
+        chrome.tabs.create({url: googleCalendarUrl});
+      });
     }
   });
-  
+}
+
+function buildPopup() {
+  tracker.sendEvent('Popup', 'Started building', '');
+
   const presetSpan = document.getElementById('presetSpan');
-  
+              
   getPresetsFromStorage(function(presets) {
     let presetIds = Object.keys(presets);
     presetIds.sort((a, b) => {
@@ -72,7 +90,6 @@ function main() {
     tracker.sendEvent('Popup', 'Button tapped', 'showOptions');
     chrome.tabs.create({ url: 'chrome-extension://' + chrome.runtime.id + '/src/options.html' });
   }
-  
 }
 
 main();
