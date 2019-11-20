@@ -58,14 +58,14 @@ function constructOptions(presets, calendars) {
     removeButton.appendChild(removeIcon);
     removeButton.className = "removeButton";
     removeButton.type = "button";
-    removeButton.onclick = () => { if (window.confirm("Are you sure you want to remove this preset?")) removePreset(presetId); };
+    removeButton.onclick = () => { if (window.confirm(chrome.i18n.getMessage("areYouSureYouWantToRemoveThisPresetQ"))) removePreset(presetId); };
     th.appendChild(presetNameInput);
     th.appendChild(removeButton);
   });
   let thCalendarNameHeader = document.createElement('th');
   thCalendarNameHeader.className = "calendarName"
   let spanCalendarNameHeader = document.createElement('span');
-  spanCalendarNameHeader.textContent = "Calendar Name"; // TODO: i18n
+  spanCalendarNameHeader.textContent = chrome.i18n.getMessage("calendarName");
   thCalendarNameHeader.appendChild(spanCalendarNameHeader);
   trHeader.appendChild(thCalendarNameHeader);
   presetTable.appendChild(trHeader);

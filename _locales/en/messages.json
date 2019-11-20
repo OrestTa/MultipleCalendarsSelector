@@ -10,5 +10,11 @@
   },
   "extensionOptions": {
     "message": "Options"
+  },
+  "calendarName": {
+    "message": "Calendar Name"
+  },
+  "areYouSureYouWantToRemoveThisPresetQ": {
+    "message": "Are you sure you want to remove this preset?"
   }
 }

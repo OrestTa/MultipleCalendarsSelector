@@ -60,7 +60,7 @@ function getPresetsFromStorage(callbackSuccess, callbackFailure) {
 
 // Object helpers
 
-const calendarNameStringsToStrip = ['Loading...', //g, //g]; // TODO: Put in options for user-implemented i18n
+const calendarNameStringsToStrip = ['Loading...', //g, //g];
 
 function namesFromCalendarJQObjects(calendarJQObjects) {
     return [...calendarJQObjects].map(calendarJQObject => {
