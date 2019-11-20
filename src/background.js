@@ -3,6 +3,8 @@
 const currentPackageVersion = chrome.runtime.getManifest().version;
 const storageIdForLastSeenPackageVersion = "lastSeenPackageVersion";
 
+let tracker;
+
 function main() {
   chrome.runtime.onInstalled.addListener(function() {
     chrome.tabs.create({ url: googleCalendarUrl });
@@ -16,7 +18,7 @@ function main() {
     });
   });
   
-  let tracker = getAnalyticsTracker();
+  tracker = getAnalyticsTracker();
   tracker.sendAppView('BackgroundView');
   tracker.sendEvent('Background', 'Extension version', currentPackageVersion);
   
