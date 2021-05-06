@@ -5,7 +5,6 @@ With this extension, you'll be able to define presets of multiple calendars that
 
 This software is a work-in-progress, so there are some limitations currently:
 
-- Only English and Polish are supported.
 - Only one Google account per browser profile is supported.
 
 Feel free to reach out to me in case you encounter further issues.
