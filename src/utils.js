@@ -99,8 +99,14 @@ function namesFromCalendarJQObjects(calendarJQObjects) {
     });
 }
 
-function calendarJQObjectsFromNames(calendarNames, allCalendars) {
-    return [...allCalendars].filter(calendar => new RegExp([...calendarNames].join('|')).test(calendar.text()));
+function calendarJQObjectsFromNames(calendarNames, allCalendarObjects) {
+    return [...allCalendarObjects].filter(calendarJQObject => {
+        let calendarName = calendarJQObject.text();
+        for (i = 0; i < calendarNameStringsToStrip.length; i++) {
+            calendarName = calendarName.replace(calendarNameStringsToStrip[i], '');
+        }
+        return calendarNames.includes(calendarName);
+    })
 }
 
 
