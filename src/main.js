@@ -31,6 +31,7 @@ async function refreshAllCalendars() {
 }
 
 async function initCalendars(presets) {
+    await sleep(4000)
     let {myCalendarsFromDiv, otherCalendarsFromDiv} = await refreshAllCalendars();
     const allCalendarsNames = namesFromCalendarJQObjects(allCalendars);
 

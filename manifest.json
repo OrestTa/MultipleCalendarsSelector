@@ -41,6 +41,7 @@
       "matches": [
         "https://calendar.google.com/*"
       ],
+      "run_at": "document_end",
       "js": [
         "libs/jquery-latest.min.js", 
         "libs/google-analytics-bundle.js", 
