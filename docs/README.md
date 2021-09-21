@@ -1,3 +1,5 @@
+![](icon128.png)
+
 With this extension, you'll be able to define presets of multiple calendars that can be displayed or hidden with one click.
 
 
@@ -30,3 +32,8 @@ Hosted at [https://otrsk.github.io/MultipleCalendarsSelector/](https://otrsk.git
 ## Credits
 
 Icon made by [Vectors Market](https://www.flaticon.com/authors/vectors-market) from [www.flaticon.com](https://www.flaticon.com/).
+
+
+## Author
+
+Made by [Dessert Ventures](https://dessertventures.com).
