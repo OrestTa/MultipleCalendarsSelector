@@ -1,3 +1,5 @@
+ <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+
 ![](icon128.png)
 
 With this extension, you'll be able to define presets of multiple calendars that can be displayed or hidden with one click.
