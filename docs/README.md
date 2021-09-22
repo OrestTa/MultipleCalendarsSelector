@@ -3,13 +3,18 @@
 With this extension, you'll be able to define presets of multiple calendars that can be displayed or hidden with one click.
 
 
-## Limitations
+## Chrome Store
 
-This software is a work-in-progress, so there are some limitations currently:
+[https://chrome.google.com/webstore/detail/multiple-calendars-select/dlfbgdklfofchbhpeimkpepfldhkpojn](https://chrome.google.com/webstore/detail/multiple-calendars-select/dlfbgdklfofchbhpeimkpepfldhkpojn)
 
-- Only one Google account per browser profile is supported.
 
-Feel free to reach out to us in case you encounter further issues.
+## Issues and Limitations
+
+Feel free to reach out to us in case you encounter any issues.
+
+Current known limitations are:
+
+- Only one Google account per browser profile is supported. If you need to use several Google accounts, you can use [several Chrome profiles](https://support.google.com/chrome/answer/2364824?hl=en&co=GENIE.Platform%3DDesktop) for this.
 
 
 ## Disclaimer
@@ -31,7 +36,7 @@ Hosted at [https://otrsk.github.io/MultipleCalendarsSelector/](https://otrsk.git
 
 ## Credits
 
-Icon made by [Vectors Market](https://www.flaticon.com/authors/vectors-market) from [www.flaticon.com](https://www.flaticon.com/).
+Icon by [Vectors Market](https://www.flaticon.com/authors/vectors-market) from [www.flaticon.com](https://www.flaticon.com/).
 
 
 ## Author
