@@ -1,6 +1,7 @@
 ![](icon128.png)
 
-With this extension, you'll be able to define presets of multiple calendars that can be displayed or hidden with one click.
+With this Google Calendar preset extension, you'll be able to define presets of multiple calendars that can be displayed or hidden with one click. This way, you will be able to easily jump between different calendar sets on Google Calendar.
+
 
 
 ## Chrome Store

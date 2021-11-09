@@ -1,6 +1,7 @@
 # TODOs
 
 ## Important
+- [ ] manifest v3 https://developer.chrome.com/docs/extensions/mv3/intro/mv3-migration/
 - [ ] Premium
     - [ ] Multiple accounts per browser profile
     - [ ] Save currently active calendars as new preset
