@@ -42,4 +42,4 @@ Icon by [Vectors Market](https://www.flaticon.com/authors/vectors-market) from [
 
 ## Author
 
-Made by [Dessert Ventures](https://dessertventures.com).
+Made by [Dessert Ventures](https://dessertventures.com/?ref=MCS).
