@@ -30,3 +30,4 @@
 - [x] Read package version from file for package.json and background.js
 - [x] Activate currently open calendar tab instead of creating a new one
 - [ ] Reordering presets manually
+- [ ] Keyboard shortcuts
