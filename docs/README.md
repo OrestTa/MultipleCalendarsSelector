@@ -1,8 +1,8 @@
 ![](icon128.png)
 
-With this Google Calendar extension for Chrome, you'll be able to define presets of multiple calendars that can be displayed or hidden with one click. This way, you will be able to easily jump between different calendar sets on Google Calendar. 
+With this Google Calendar extension for Chrome, you'll be able to define presets of multiple calendars that can be displayed or hidden with one click. This way, you will be able to easily jump back and forth between different calendar sets.
 
-Useful for viewing an entire team's availability, or previewing several conference rooms at once.
+Useful for viewing an entire team's availability, or previewing several conference rooms' load all at once.
 
 Easily showing or hiding all calendars is also supported.
 
