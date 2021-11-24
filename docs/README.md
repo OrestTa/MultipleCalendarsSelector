@@ -1,7 +1,12 @@
 ![](icon128.png)
 
-With this Google Calendar preset extension, you'll be able to define presets of multiple calendars that can be displayed or hidden with one click. This way, you will be able to easily jump between different calendar sets on Google Calendar.
+With this Google Calendar extension for Chrome, you'll be able to define presets of multiple calendars that can be displayed or hidden with one click. This way, you will be able to easily jump between different calendar sets on Google Calendar. 
 
+Useful for viewing an entire team's availability, or previewing several conference rooms at once.
+
+Easily showing or hiding all calendars is also supported.
+
+Hint: Consider combining this with the [Event Merge for Google Calendar](https://chrome.google.com/webstore/detail/event-merge-for-google-ca/idehaflielbgpaokehlhidbjlehlfcep) extension for cleaner visuals.
 
 
 ## Chrome Store
