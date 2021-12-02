@@ -1,11 +1,8 @@
 # TODOs
 
 ## Important
-- [ ] manifest v3 https://developer.chrome.com/docs/extensions/mv3/intro/mv3-migration/
-- [ ] Premium
-    - [ ] Multiple accounts per browser profile
-    - [ ] Save currently active calendars as new preset
-    - [ ] Teams (share presets across your organisation)
+- [ ] Migrate manifest to v3: https://developer.chrome.com/docs/extensions/mv3/intro/mv3-migration/
+- [ ] Support large numbers of calendars (somewhat buggy currently for say 50+ calendars, esp. on slow machines)
 - [x] add option for changing sleep duration when hiding the drawer
 - [x] support changing div selector text manually or make this inidependent of the language
 - [x] add version to options
@@ -31,3 +28,6 @@
 - [x] Activate currently open calendar tab instead of creating a new one
 - [ ] Reordering presets manually
 - [ ] Keyboard shortcuts
+- [ ] Support for multiple Google accounts per browser profile
+- [ ] Save currently active calendars as new preset
+- [ ] Premium: Support for teams (share presets across your organisation, integrate with directory service etc.)

@@ -11,7 +11,7 @@ Hint: Consider combining this with the [Event Merge for Google Calendar](https:/
 
 ## Chrome Store
 
-[https://chrome.google.com/webstore/detail/multiple-calendars-select/dlfbgdklfofchbhpeimkpepfldhkpojn](https://chrome.google.com/webstore/detail/multiple-calendars-select/dlfbgdklfofchbhpeimkpepfldhkpojn)
+Add to your Chrome (or a compatible browser) at [https://chrome.google.com/webstore/detail/multiple-calendars-select/dlfbgdklfofchbhpeimkpepfldhkpojn](https://chrome.google.com/webstore/detail/multiple-calendars-select/dlfbgdklfofchbhpeimkpepfldhkpojn).
 
 
 ## Issues and Limitations
@@ -21,11 +21,7 @@ Feel free to reach out to us in case you encounter any issues.
 Current known limitations are:
 
 - Only one Google account per browser profile is supported. If you need to use several Google accounts, you can use [several Chrome profiles](https://support.google.com/chrome/answer/2364824?hl=en&co=GENIE.Platform%3DDesktop) for this.
-
-
-## Disclaimer
-
-No representations are made about the suitability of this software for any purpose. It is provided "as is" without express or implied warranty.
+- Very large (ca. 50+) numbers of calendars cause issues, especially on slower machines.
 
 
 ## Privacy Policy
@@ -37,7 +33,29 @@ For the latest version of this Privacy Policy, please refer to the extension det
 
 ## Homepage
 
-Hosted at [https://otrsk.github.io/MultipleCalendarsSelector/](https://otrsk.github.io/MultipleCalendarsSelector/).
+Hosted at [https://otrsk.github.io/MultipleCalendarsSelector](https://otrsk.github.io/MultipleCalendarsSelector).
+
+
+## Source Code
+
+Hosted at [https://github.com/otrsk/MultipleCalendarsSelector](https://github.com/otrsk/MultipleCalendarsSelector).
+
+
+## Licence and Disclaimer
+
+[BSD-3-Clause](https://opensource.org/licenses/BSD-3-Clause)
+
+Copyright 2021 Orest Tarasiuk Dessert Ventures
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 ## Credits
@@ -47,4 +65,4 @@ Icon by [Vectors Market](https://www.flaticon.com/authors/vectors-market) from [
 
 ## Author
 
-Made by [Dessert Ventures](https://dessertventures.com/?ref=MCS).
+Made by Orest Tarasiuk at [Dessert Ventures](https://dessertventures.com/?ref=MCS).
