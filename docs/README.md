@@ -33,12 +33,12 @@ For the latest version of this Privacy Policy, please refer to the extension det
 
 ## Homepage
 
-Hosted at [https://otrsk.github.io/MultipleCalendarsSelector](https://otrsk.github.io/MultipleCalendarsSelector).
+Hosted at [https://orestta.github.io/MultipleCalendarsSelector](https://orestta.github.io/MultipleCalendarsSelector).
 
 
 ## Source Code
 
-Hosted at [https://github.com/otrsk/MultipleCalendarsSelector](https://github.com/otrsk/MultipleCalendarsSelector).
+Hosted at [https://github.com/orestta/MultipleCalendarsSelector](https://github.com/orestta/MultipleCalendarsSelector).
 
 
 ## Licence and Disclaimer
