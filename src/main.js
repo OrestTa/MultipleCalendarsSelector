@@ -151,7 +151,7 @@ function findCalendarsInDiv(div) {
 }
 
 function getState(calendar) {
-    const calendarState = calendar.children().first().children().first().children().first().attr('aria-checked');
+    const calendarState = calendar.children().children().children().children().children()[0].checked;
     return calendarState;
 }
 
@@ -174,8 +174,8 @@ async function focusCalendars(presetId) {
     getPresetsFromStorage(function(presets) {
         const calendarJQObjects = calendarJQObjectsFromNames(presets[presetId].calendars, allCalendars)
         const calendarsToHide = [...allCalendars].filter(x => !calendarJQObjects.includes(x));
-        setStateOnCalendars(calendarsToHide, "false");
-        setStateOnCalendars(calendarJQObjects, "true");
+        setStateOnCalendars(calendarsToHide, false);
+        setStateOnCalendars(calendarJQObjects, true);
     }, function(err) {
         const errorMessage = "Couldn't load presets from storage to focus: " + err;
         tracker.sendEvent('Main', 'Error', errorMessage);
@@ -186,13 +186,13 @@ async function focusCalendars(presetId) {
 async function hideAllCalendars() {
     tracker.sendEvent('Main', 'Hiding done', '');
     await refreshAllCalendars();
-    setStateOnCalendars(allCalendars, "false");
+    setStateOnCalendars(allCalendars, false);
 }
 
 async function showAllCalendars() {
     tracker.sendEvent('Main', 'Showing all done', '');
     await refreshAllCalendars();
-    setStateOnCalendars(allCalendars, "true");
+    setStateOnCalendars(allCalendars, true);
 }
 
 function main() {
