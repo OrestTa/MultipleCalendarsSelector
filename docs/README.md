@@ -41,6 +41,16 @@ Hosted at [https://orestta.github.io/MultipleCalendarsSelector](https://orestta.
 Hosted at [https://github.com/orestta/MultipleCalendarsSelector](https://github.com/orestta/MultipleCalendarsSelector).
 
 
+## Local Development
+
+Just edit the files in the root of the repo away (probably mainly in `/src/`). To test, open your Chrome, go to [Settings -> Extensions](chrome://extensions/), select "Load unpacked" in the top-left corner, and point it to the root of the repo. Observe the "Errors" button while testing, and use the "refresh" icon to re-load.
+
+
+## Deployment to Chrome Store
+
+Feel free to submit a pull request (PR) to [the repo](https://github.com/OrestTa/MultipleCalendarsSelector/pulls) any time detailing your suggested code changes (incl. rationale), and request a review from the Chrome Store maintainer `OrestTa`.
+
+
 ## Licence and Disclaimer
 
 [BSD-3-Clause](https://opensource.org/licenses/BSD-3-Clause)
