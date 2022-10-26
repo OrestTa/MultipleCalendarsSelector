@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Multiple Calendars Selector for Google Cal",
-  "version": "1.13",
+  "version": "1.14",
   "default_locale": "en",
   "description": "Allows you to quickly display just the group of calendars that you want (on Google Calendar).",
   "author": "Dessert Ventures, Orest Tarasiuk",
