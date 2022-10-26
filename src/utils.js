@@ -91,7 +91,7 @@ const calendarNameStringsToStrip = ['Loading...', //g, //g];
 
 function namesFromCalendarJQObjects(calendarJQObjects) {
     return [...calendarJQObjects].map(calendarJQObject => {
-        let calendarName = calendarJQObject.text();
+        let calendarName = calendarJQObject.context.innerHTML;
         for (i = 0; i < calendarNameStringsToStrip.length; i++) {
             calendarName = calendarName.replace(calendarNameStringsToStrip[i], '');
         }
@@ -101,7 +101,7 @@ function namesFromCalendarJQObjects(calendarJQObjects) {
 
 function calendarJQObjectsFromNames(calendarNames, allCalendarObjects) {
     return [...allCalendarObjects].filter(calendarJQObject => {
-        let calendarName = calendarJQObject.text();
+        let calendarName = calendarJQObject.context.innerHTML;
         for (i = 0; i < calendarNameStringsToStrip.length; i++) {
             calendarName = calendarName.replace(calendarNameStringsToStrip[i], '');
         }
