@@ -1,20 +1,20 @@
 {
-  "preset": {
-    "message": "Zestaw"
-  },
-  "displayAllCalendars": {
-    "message": "Wyświetl wszystkie kalendarze"
-  },
-  "hideAllCalendars": {
-    "message": "Ukryj wszystkie kalendarze"
-  },
-  "extensionOptions": {
-    "message": "Ustawienia"
-  },
-  "calendarName": {
-    "message": "Nazwa kalendarza"
-  },
-  "areYouSureYouWantToRemoveThisPresetQ": {
-    "message": "Czy na pewno chcesz usunąć ten zestaw?"
-  }
+    "preset": {
+        "message": "Zestaw"
+    },
+    "displayAllCalendars": {
+        "message": "Wyświetl wszystkie kalendarze"
+    },
+    "hideAllCalendars": {
+        "message": "Ukryj wszystkie kalendarze"
+    },
+    "extensionOptions": {
+        "message": "Ustawienia"
+    },
+    "calendarName": {
+        "message": "Nazwa kalendarza"
+    },
+    "areYouSureYouWantToRemoveThisPresetQ": {
+        "message": "Czy na pewno chcesz usunąć ten zestaw?"
+    }
 }

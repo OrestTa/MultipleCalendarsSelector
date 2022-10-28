@@ -1,28 +1,31 @@
-table, th, td {
+table,
+th,
+td {
     border: 1px solid grey;
     border-collapse: collapse;
     padding: 4px 6px 4px 6px;
 }
 
 td {
-  text-align: center;
+    text-align: center;
 }
 
 button.popup {
-  height: 30px;
-  width: 250px;
-  outline: none;
+    height: 30px;
+    width: 250px;
+    outline: none;
 }
 
-td.calendarName, th.calendarName {
-  text-align: left;
+td.calendarName,
+th.calendarName {
+    text-align: left;
 }
 
-input[type=text] {
-  width: 100px;
-  text-align: center;
+input[type='text'] {
+    width: 100px;
+    text-align: center;
 }
 
 .removeIcon {
-  height: 10px;
+    height: 10px;
 }

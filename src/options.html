@@ -1,56 +1,84 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <link rel="stylesheet" href="styles.css">
-    <title>Multiple Calendars Selector for Google Cal: Options</title>
-  </head>
-  <body>
-    <div>
-      <h1>Multiple Calendars Selector for Google Cal: Options</h1>
-      <h2>Calendars visible in your presets</h2>
-      <button class="options" id="addNewPreset">Add a preset</button>
-      <br/><br/>
-        <form id="presetForm">
-          <table id="presetTable">
-          </table>
-          <br/>
-        </form>
-        <br/><br/>
-        <h4>Missing some calendars?</h4>
-        <p>If there are too few calendars visible above, try the following steps:
-          <ol>
-            <li>Maximise your Chrome window as the extension may not find all calendars if there is not enough space for the calendars list.</li>
-            <li>Go to <a href="https://calendar.google.com/" target="_blank">Google Calendar</a> and let the page load fully before you go to another tab.</li>
-            <li>Ensure that the list(s) of your calendars are visible (unfolded). If they weren't, unfold them and refresh the Google Calendar page.</li>
-            <li>Finally, refresh this options page.</li>
-          </ol>
-        </p>
-        <p>If this doesn't help, try increasing the configuration value "Delay when hiding the drawer (in ms)" below to a larger number, e. g. to 1000.</p>
-        <p>You can also lower this value in order to speed up the switching process in case you're not experiencing issues.</p>
-        <p>Should your problem persist, feel free to reach out to the developer at <a href="mailto:multiplecalendarsselector@tarasiuk.me">multiplecalendarsselector@tarasiuk.me</a>.</p>
-    </div>
-    <br/><br/><br/><br/>
-    <div>
-      <h2>Configuration</h2>
-      <p id='delay'>
-        Delay when hiding the drawer (in ms): 
-        <input type='text' id='drawerDelay'>
-      </p>
-      <p id='analytics'>
-        <span id='settings-loading'>Loading...</span>
-        <span id='settings-loaded'>
-          <form>
-            Allow anonymous analytics <input type="checkbox" id='tracking-permitted'>
-          </form>
-        </span>
-      </p>
-      <p id='version'>
-        Version:&nbsp;
-      </p>
-    </div>
-  </body>
-  <script src="../libs/google-analytics-bundle.js"></script>
-  <script src="../libs/jquery-latest.min.js"></script>
-  <script src="utils.js"></script>
-  <script src="options.js"></script>
+    <head>
+        <link rel="stylesheet" href="styles.css" />
+        <title>Multiple Calendars Selector for Google Cal: Options</title>
+    </head>
+    <body>
+        <div>
+            <h1>Multiple Calendars Selector for Google Cal: Options</h1>
+            <h2>Calendars visible in your presets</h2>
+            <button class="options" id="addNewPreset">Add a preset</button>
+            <br /><br />
+            <form id="presetForm">
+                <table id="presetTable"></table>
+                <br />
+            </form>
+            <br /><br />
+            <h4>Missing some calendars?</h4>
+            <div>
+                If there are too few calendars visible above, try the following
+                steps:
+                <ol>
+                    <li>
+                        Maximise your Chrome window as the extension may not
+                        find all calendars if there is not enough space for the
+                        calendars list.
+                    </li>
+                    <li>
+                        Go to
+                        <a href="https://calendar.google.com/" target="_blank"
+                            >Google Calendar</a
+                        >
+                        and let the page load fully before you go to another
+                        tab.
+                    </li>
+                    <li>
+                        Ensure that the list(s) of your calendars are visible
+                        (unfolded). If they weren't, unfold them and refresh the
+                        Google Calendar page.
+                    </li>
+                    <li>Finally, refresh this options page.</li>
+                </ol>
+            </div>
+            <p>
+                If this doesn't help, try increasing the configuration value
+                "Delay when hiding the drawer (in ms)" below to a larger number,
+                e. g. to 1000.
+            </p>
+            <p>
+                You can also lower this value in order to speed up the switching
+                process in case you're not experiencing issues.
+            </p>
+            <p>
+                Should your problem persist, feel free to reach out to the
+                developer at
+                <a href="mailto:multiplecalendarsselector@tarasiuk.me"
+                    >multiplecalendarsselector@tarasiuk.me</a
+                >.
+            </p>
+        </div>
+        <br /><br /><br /><br />
+        <div>
+            <h2>Configuration</h2>
+            <p id="delay">
+                Delay when hiding the drawer (in ms):
+                <input type="text" id="drawerDelay" />
+            </p>
+            <p id="analytics">
+                <span id="settings-loading">Loading...</span>
+                <span id="settings-loaded">
+                    <form>
+                        Allow anonymous analytics
+                        <input type="checkbox" id="tracking-permitted" />
+                    </form>
+                </span>
+            </p>
+            <p id="version">Version:&nbsp;</p>
+        </div>
+    </body>
+    <script src="../libs/google-analytics-bundle.js"></script>
+    <script src="../libs/jquery-latest.min.js"></script>
+    <script src="utils.js"></script>
+    <script src="options.js"></script>
 </html>
