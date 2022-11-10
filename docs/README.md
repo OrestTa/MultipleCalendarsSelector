@@ -43,7 +43,7 @@ Hosted at [https://github.com/orestta/MultipleCalendarsSelector](https://github.
 
 ## Local Development
 
-Just edit the files in the root of the repo away (probably mainly in `/src/`). To test, open your Chrome, go to [Settings -> Extensions](chrome://extensions/), select "Load unpacked" in the top-left corner, and point it to the root of the repo. Observe the "Errors" button while testing, and use the "refresh" icon to re-load.
+Just edit the files in the root of the repo away (probably mainly in `/src/`). To test, open your Chrome, go to [Settings -> Extensions](about:extensions), select "Load unpacked" in the top-left corner, and point it to the root of the repo. Observe the "Errors" button while testing, and use the "refresh" icon to re-load.
 
 
 ## Deployment to Chrome Store
