@@ -102,9 +102,9 @@ async function shrinkDrawerHeight() {
     const otherCalendarsDiv = calendarListsDiv.children().eq(4).children()
     hideCalendarDiv(otherCalendarsDiv)
 
-    const calendarListButtons = jQuery("div[aria-expanded='true']")
-    const myCalendarsButton = calendarListButtons[1]
-    const otherCalendarsButton = calendarListButtons[2]
+    const calendarListButtons = jQuery("button[aria-expanded='true']")
+    const myCalendarsButton = calendarListButtons[0]
+    const otherCalendarsButton = calendarListButtons[1]
     myCalendarsButton.click()
     otherCalendarsButton.click()
 
@@ -157,7 +157,7 @@ function getCalendarDivs() {
 
 function findCalendarsInDiv(div) {
     let foundCalendars = []
-    div.find('span:not([class])').each(function (index) {
+    div.find('span[jsslot]:not([class])').each(function (index) {
         foundCalendars.push(jQuery(this).parent().parent())
     })
     return foundCalendars
