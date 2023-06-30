@@ -55,7 +55,7 @@ Feel free to submit a pull request (PR) to [the repo](https://github.com/OrestTa
 
 [BSD-3-Clause](https://opensource.org/licenses/BSD-3-Clause)
 
-Copyright 2021 Orest Tarasiuk Dessert Ventures
+Copyright 2021 Dessert Ventures Orest Tarasiuk Igor Tarasiuk
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
