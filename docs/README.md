@@ -75,4 +75,4 @@ Icon by [Vectors Market](https://www.flaticon.com/authors/vectors-market) from [
 
 ## Author
 
-Made by Orest Tarasiuk at [Dessert Ventures](https://dessertventures.com/?ref=MCS).
+Made by Orest Tarasiuk & Igor Tarasiuk at [Dessert Ventures](https://dessertventures.com/?ref=MCS).
