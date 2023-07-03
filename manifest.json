@@ -4,7 +4,7 @@
     "version": "1.15",
     "default_locale": "en",
     "description": "Allows you to quickly display just the group of calendars that you want (on Google Calendar).",
-    "author": "Dessert Ventures, Orest Tarasiuk",
+    "author": "Dessert Ventures, Orest Tarasiuk, Igor Tarasuk",
     "icons": {
         "16": "images/icon16.png",
         "32": "images/icon32.png",
