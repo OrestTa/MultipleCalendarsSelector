@@ -8,11 +8,9 @@ Easily showing or hiding all calendars is also supported.
 
 Hint: Consider combining this with the [Event Merge for Google Calendar](https://chrome.google.com/webstore/detail/event-merge-for-google-ca/idehaflielbgpaokehlhidbjlehlfcep) extension for cleaner visuals.
 
-
 ## Chrome Store
 
 Add to your Chrome (or a compatible browser) at [https://chrome.google.com/webstore/detail/multiple-calendars-select/dlfbgdklfofchbhpeimkpepfldhkpojn](https://chrome.google.com/webstore/detail/multiple-calendars-select/dlfbgdklfofchbhpeimkpepfldhkpojn).
-
 
 ## Issues and Limitations
 
@@ -20,9 +18,8 @@ Feel free to reach out to us in case you encounter any issues.
 
 Current known limitations are:
 
-- Only one Google account per browser profile is supported. If you need to use several Google accounts, you can use [several Chrome profiles](https://support.google.com/chrome/answer/2364824?hl=en&co=GENIE.Platform%3DDesktop) for this.
-- Very large (ca. 50+) numbers of calendars cause issues, especially on slower machines.
-
+-   Only one Google account per browser profile is supported. If you need to use several Google accounts, you can use [several Chrome profiles](https://support.google.com/chrome/answer/2364824?hl=en&co=GENIE.Platform%3DDesktop) for this
+-   Very large (ca. 50+) numbers of calendars cause issues, especially on slower machines.
 
 ## Privacy Policy
 
@@ -30,26 +27,31 @@ When you use this extension, your presets (including the names of your calendars
 
 For the latest version of this Privacy Policy, please refer to the extension detail page on Chrome Web Store.
 
-
 ## Homepage
 
 Hosted at [https://orestta.github.io/MultipleCalendarsSelector](https://orestta.github.io/MultipleCalendarsSelector).
-
 
 ## Source Code
 
 Hosted at [https://github.com/orestta/MultipleCalendarsSelector](https://github.com/orestta/MultipleCalendarsSelector).
 
-
 ## Local Development
 
 Just edit the files in the root of the repo away (probably mainly in `/src/`). To test, open your Chrome, go to [Settings -> Extensions](about:extensions), select "Load unpacked" in the top-left corner, and point it to the root of the repo. Observe the "Errors" button while testing, and use the "refresh" icon to re-load.
 
+## Contributing
 
-## Deployment to Chrome Store
+Feel free to submit a pull request (PR) to [the repo](https://github.com/OrestTa/MultipleCalendarsSelector/pulls) any time detailing your suggested code changes (incl. rationale), and request a review from the Chrome Store maintainer `igortrsk`.
 
-Feel free to submit a pull request (PR) to [the repo](https://github.com/OrestTa/MultipleCalendarsSelector/pulls) any time detailing your suggested code changes (incl. rationale), and request a review from the Chrome Store maintainer `OrestTa`.
+## Chrome Store: Packaging and Deployment
 
+_This is for the Chrome Store maintainer only._
+
+1. Make sure you've bumped the version field in `manifest.json`.
+2. Run `./package.sh`.
+3. Upload the created zip file to https://chrome.google.com/webstore/devconsole/71bba2b3-f8e2-48e8-84c7-c14f10546c6e/dlfbgdklfofchbhpeimkpepfldhkpojn/edit/package and submit for review.
+4. Bring up the master branch to the commit that's reviewed and released.
+5. Optional: Bump the version field so you don't forget it in the future.
 
 ## Licence and Disclaimer
 
@@ -67,11 +69,9 @@ Redistribution and use in source and binary forms, with or without modification,
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-
 ## Credits
 
 Icon by [Vectors Market](https://www.flaticon.com/authors/vectors-market) from [www.flaticon.com](https://www.flaticon.com/).
-
 
 ## Author
 
