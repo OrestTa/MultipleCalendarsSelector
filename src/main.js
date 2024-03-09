@@ -168,7 +168,6 @@ function getState(calendar) {
         .children()
         .children()
         .children()
-        .children()
         .children()[0].checked
     return calendarState
 }
