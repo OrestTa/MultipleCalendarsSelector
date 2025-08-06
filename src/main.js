@@ -157,7 +157,7 @@ function getCalendarDivs() {
 
 function findCalendarsInDiv(div) {
     let foundCalendars = []
-    div.find('span[jsslot]:not([class])').each(function (index) {
+    div.find('span[jsslot]').each(function (index) {
         foundCalendars.push(jQuery(this).parent().parent())
     })
     return foundCalendars
