@@ -126,13 +126,3 @@ function calendarJQObjectsFromNames(calendarNames, allCalendarObjects) {
 function getAnalyticsService() {
     return analytics.getService('multipleCalendarsSelectorExtension')
 }
-
-function getAnalyticsTracker() {
-    let tracker
-    if (isDevMode()) {
-        tracker = getAnalyticsService().getTracker('DEBUG_DUMMY_TRACKER')
-    } else {
-        tracker = getAnalyticsService().getTracker('UA-151273087-1')
-    }
-    return tracker
-}

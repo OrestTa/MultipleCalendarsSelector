@@ -1,5 +1,5 @@
 {
-    "manifest_version": 2,
+    "manifest_version": 3,
     "name": "Multiple Calendars Selector for Google Cal",
     "version": "1.17",
     "default_locale": "en",
@@ -11,30 +11,25 @@
         "48": "images/icon48.png",
         "128": "images/icon128.png"
     },
-    "page_action": {
-        "default_popup": "src/popup.html",
-        "default_icon": {
+    "action":{
+        "default_icon" :{
             "16": "images/icon16.png",
             "32": "images/icon32.png",
             "48": "images/icon48.png",
             "128": "images/icon128.png"
-        }
+        },
+        "default_popup": "src/popup.html"
     },
     "permissions": [
         "activeTab",
         "tabs",
         "declarativeContent",
         "storage",
-        "https://www.google-analytics.com/"
+        "scripting"
     ],
     "options_page": "src/options.html",
     "background": {
-        "scripts": [
-            "libs/google-analytics-bundle.js",
-            "src/utils.js",
-            "src/background.js"
-        ],
-        "persistent": false
+        "service_worker": "src/background.js"
     },
     "content_scripts": [
         {
@@ -42,7 +37,6 @@
             "run_at": "document_end",
             "js": [
                 "libs/jquery-latest.min.js",
-                "libs/google-analytics-bundle.js",
                 "src/utils.js",
                 "src/main.js"
             ],

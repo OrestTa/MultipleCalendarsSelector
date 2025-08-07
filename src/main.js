@@ -4,7 +4,6 @@ console.log('Starting Multiple Calendars Selector...')
 
 let calendarListsDiv
 let allCalendars
-let tracker
 
 function initExtension(callbackSuccess, callbackFailure) {
     // Restore saved presets, then check for further (new) calendars
@@ -41,12 +40,6 @@ async function initCalendars(presets) {
 
     let debugMessage =
         "Discovered calendars' hash: " + String(allCalendarsNames).hashCode()
-    tracker.sendEvent('Main', 'Debug', debugMessage)
-    tracker.sendEvent(
-        'Main',
-        'Discovered number of calendars',
-        allCalendars.length
-    )
     console.log(debugMessage)
 
     chrome.storage.sync.set(
@@ -56,7 +49,6 @@ async function initCalendars(presets) {
 
     if (typeof presets === 'undefined' || Object.keys(presets).length == 0) {
         debugMessage = 'No presets found, initialising with defaults'
-        tracker.sendEvent('Main', 'Debug', debugMessage)
         console.log(debugMessage)
         let presets = {}
         presets[generateId()] = {
@@ -74,7 +66,6 @@ async function initCalendars(presets) {
 
     debugMessage =
         'Init Calendars done with ' + allCalendars.length + ' calendars'
-    tracker.sendEvent('Main', 'Debug', debugMessage)
     console.log(debugMessage)
     return allCalendars
 }
@@ -185,46 +176,9 @@ function setStateOnCalendars(calendars, state) {
     })
 }
 
-async function focusCalendars(presetId) {
-    tracker.sendEvent('Main', 'Focusing done', '')
-    await refreshAllCalendars()
-    getPresetsFromStorage(
-        function (presets) {
-            const calendarJQObjects = calendarJQObjectsFromNames(
-                presets[presetId].calendars,
-                allCalendars
-            )
-            const calendarsToHide = [...allCalendars].filter(
-                (x) => !calendarJQObjects.includes(x)
-            )
-            setStateOnCalendars(calendarsToHide, false)
-            setStateOnCalendars(calendarJQObjects, true)
-        },
-        function (err) {
-            const errorMessage =
-                "Couldn't load presets from storage to focus: " + err
-            tracker.sendEvent('Main', 'Error', errorMessage)
-            console.log(errorMessage)
-        }
-    )
-}
 
-async function hideAllCalendars() {
-    tracker.sendEvent('Main', 'Hiding done', '')
-    await refreshAllCalendars()
-    setStateOnCalendars(allCalendars, false)
-}
-
-async function showAllCalendars() {
-    tracker.sendEvent('Main', 'Showing all done', '')
-    await refreshAllCalendars()
-    setStateOnCalendars(allCalendars, true)
-}
 
 function main() {
-    tracker = getAnalyticsTracker()
-    tracker.sendAppView('MainView')
-    tracker.sendEvent('Main', 'Document ready, init started', '')
     initExtension()
 }
 

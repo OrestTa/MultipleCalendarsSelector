@@ -5,10 +5,8 @@ let presetTable = document.getElementById('presetTable')
 let drawerDelayInput = document.getElementById('drawerDelay')
 let versionParagraph = document.getElementById('version')
 
-let tracker
 
 function addNewPreset() {
-    tracker.sendEvent('Options', 'Button tapped', 'addNewPreset')
     persistPresets()
     getPresetsFromStorage(
         function (presets) {
@@ -26,14 +24,12 @@ function addNewPreset() {
         function (err) {
             const errorMessage =
                 "Couldn't load presets for adding a new one: " + err
-            tracker.sendEvent('Options', 'Error', errorMessage)
             console.log(errorMessage)
         }
     )
 }
 
 function removePreset(presetId) {
-    tracker.sendEvent('Options', 'Button tapped', 'removePreset')
     const debugMessage = 'Deleting preset with ID ' + presetId
     console.log(debugMessage)
     jQuery('.' + presetId).remove()
@@ -112,7 +108,6 @@ function constructOptions(presets, calendars) {
 }
 
 function persistPresets() {
-    tracker.sendEvent('Options', 'Presets persisted')
     storePresets(formToPresets())
 }
 
@@ -182,9 +177,7 @@ function initAnalyticsConfig(config) {
     checkbox.onchange = function () {
         if (checkbox.checked) {
             config.setTrackingPermitted(checkbox.checked)
-            tracker.sendEvent('Options', 'Button tapped', 'analyticsEnable')
         } else {
-            tracker.sendEvent('Options', 'Button tapped', 'analyticsDisable')
             config.setTrackingPermitted(checkbox.checked)
         }
     }
@@ -196,9 +189,7 @@ function initVersionField() {
 }
 
 function init() {
-    tracker = getAnalyticsTracker()
     initDrawerDelayConfig()
-    getAnalyticsService().getConfig().addCallback(initAnalyticsConfig)
     initVersionField()
 
     addNewPresetButton.onclick = addNewPreset
@@ -211,13 +202,10 @@ function init() {
                 }
                 constructOptions(presets, allCalendars)
                 restorePresetsOntoForm(presets)
-                tracker.sendAppView('OptionsView')
-                tracker.sendEvent('Options', 'Init done', '')
             })
         },
         function (err) {
             const errorMessage = "Couldn't load presets for options: " + err
-            tracker.sendEvent('Options', 'Error', errorMessage)
             console.log(errorMessage)
         }
     )
