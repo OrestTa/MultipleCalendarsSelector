@@ -20,7 +20,7 @@ function initExtension(callbackSuccess, callbackFailure) {
 }
 
 async function refreshAllCalendars() {
-    calendarListsDiv = jQuery("div[role='complementary']:eq(0)").children()
+    calendarListsDiv = jQuery("div[role='complementary']:eq(1)").children()
     const { myCalendarsDiv, otherCalendarsDiv } = await shrinkDrawerHeight()
     const myCalendarsFromDiv = findCalendarsInDiv(myCalendarsDiv)
     const otherCalendarsFromDiv = findCalendarsInDiv(otherCalendarsDiv)
