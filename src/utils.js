@@ -91,6 +91,31 @@ async function getDrawerDelayFromStorageAsync() {
     return promise
 }
 
+// Shared actions
+
+/** Can only be called in the injected context */
+async function focusCalendars(presetId) {
+    await refreshAllCalendars()
+    getPresetsFromStorage(
+        function (presets) {
+            const calendarJQObjects = calendarJQObjectsFromNames(
+                presets[presetId].calendars,
+                allCalendars
+            )
+            const calendarsToHide = [...allCalendars].filter(
+                (x) => !calendarJQObjects.includes(x)
+            )
+            setStateOnCalendars(calendarsToHide, false)
+            setStateOnCalendars(calendarJQObjects, true)
+        },
+        function (err) {
+            const errorMessage =
+                "Couldn't load presets from storage to focus: " + err
+            console.log(errorMessage)
+        }
+    )
+}
+
 // Object helpers
 
 const calendarNameStringsToStrip = ['Loading...', //g, //g]

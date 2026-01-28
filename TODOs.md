@@ -28,7 +28,7 @@
 - [x] Activate currently open calendar tab instead of creating a new one
 - [ ] Import/export for configuration (esp. presets)
 - [ ] Reordering presets manually
-- [ ] Keyboard shortcuts
+- [x] Keyboard shortcuts
 - [ ] Support for multiple Google accounts per browser profile
 - [ ] Save currently active calendars as new preset
 - [ ] Premium: Support for teams (share presets across your organisation, integrate with directory service etc.)

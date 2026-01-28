@@ -32,6 +32,17 @@ async function refreshAllCalendars() {
     }
 }
 
+function initShortcuts(presetIds) {
+    window.addEventListener('keydown', (ev) => {
+        if (ev.ctrlKey && ev.altKey) {
+            const keyNum = Number.parseInt(ev.key)
+            const presetId = presetIds[keyNum - 1]
+            console.log(keyNum, presetId)
+            presetId != undefined && focusCalendars(presetId)
+        }
+    })
+}
+
 async function initCalendars(presets) {
     await sleep(4000)
     let { myCalendarsFromDiv, otherCalendarsFromDiv } =
@@ -50,7 +61,7 @@ async function initCalendars(presets) {
     if (typeof presets === 'undefined' || Object.keys(presets).length == 0) {
         debugMessage = 'No presets found, initialising with defaults'
         console.log(debugMessage)
-        let presets = {}
+        presets = {}
         presets[generateId()] = {
             name: 'Preset 1',
             calendars: namesFromCalendarJQObjects(myCalendarsFromDiv),
@@ -63,6 +74,10 @@ async function initCalendars(presets) {
         }
         storePresets(presets)
     }
+
+    const presetIds = Object.keys(presets)
+    presetIds.sort((a, b) => presets[a].orderValue - presets[b].orderValue)
+    initShortcuts(presetIds)
 
     debugMessage =
         'Init Calendars done with ' + allCalendars.length + ' calendars'
