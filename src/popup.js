@@ -1,29 +1,6 @@
 'use strict'
 
 
-async function focusCalendars(presetId) {
-    await refreshAllCalendars()
-    getPresetsFromStorage(
-        function (presets) {
-            const calendarJQObjects = calendarJQObjectsFromNames(
-                presets[presetId].calendars,
-                allCalendars
-            )
-            const calendarsToHide = [...allCalendars].filter(
-                (x) => !calendarJQObjects.includes(x)
-            )
-            setStateOnCalendars(calendarsToHide, false)
-            setStateOnCalendars(calendarJQObjects, true)
-        },
-        function (err) {
-            const errorMessage =
-                "Couldn't load presets from storage to focus: " + err
-            console.log(errorMessage)
-        }
-    )
-}
-
-
 async function hideAllCalendars() {
     await refreshAllCalendars()
     setStateOnCalendars(allCalendars, false)
